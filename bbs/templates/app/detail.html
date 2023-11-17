@@ -1,0 +1,19 @@
+<html>
+    <div>
+      <a href="{% url 'app:index' %}">ホームに戻る</a>
+    </div>
+    
+    <h2>{{ app.title }}</h2>
+    <div>
+      {{ app.text | linebreaks | urlize }}
+
+      {% if app.url_link %}
+      {{ app.url_link | linebreaks | urlize }}
+      {% endif %}
+      
+    </div>
+
+    <button class="btn" type="submit"><a href="{% url 'app:edit_post' post.pk %}">編集</a></button>
+
+
+  </html>

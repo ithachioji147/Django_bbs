@@ -1,0 +1,14 @@
+<html>
+
+<a class="btn" href="{% url 'app:new_post' %}">新規メモ作成</a>
+
+{% for article in articles %}
+<a href="{% url 'app:detail' article_id=article.id %}" class="memo-title">
+  <div>
+    {{ article }}
+    <span class="updated_datetime">{{ app.updated_datetime }}</span>
+  </div>
+</a>
+{% endfor %}
+
+</html>

@@ -1,0 +1,30 @@
+<html>
+    <div>
+        <a href="{% url 'app:index' %}">ホームに戻る</a>
+    </div>
+
+    <form action="{% url 'app:edit_post' post.pk %}" method="POST">{% csrf_token %}
+    <!-- {{ form.as_p }} -->
+    <!-- as_pでフォーム内容そのまま表示できる -->
+
+    <table>
+        <tr>
+            <th>タイトル</th>
+            <td>{{ form.title }}</td>
+        </tr>
+        <tr>
+            <th>名前</th>
+            <td>{{ form.name }}</td>
+        </tr>
+        <tr>
+            <th>本文</th>
+            <td>{{ form.text }}</td>
+        </tr>
+        <tr>
+            <th>URLリンク</th>
+            <td>{{ form.url_link }}</td>
+        </tr>
+    </table>
+    <button class="btn" type="submit">保存</button>
+    </form>
+</html>

@@ -1,11 +1,8 @@
 <div>
-    <a href="{% url 'app:index' %}">ホームに戻る</a>
+    <a href="{% url 'main:index' %}">ホームに戻る</a>
   </div>
 
-  <form action="{% url 'app:new_post' %}" method="POST">{% csrf_token %}
-    <!-- {{ form.as_p }} -->
-    <!-- as_pでフォーム内容そのまま表示できる -->
-
+  <form action="{% url 'main:new_article' %}" method="POST">{% csrf_token %}
     <table>
       <tr>
         <th>タイトル</th>
@@ -13,7 +10,7 @@
       </tr>
       <tr>
         <th>名前</th>
-        <td>{{ form.name }}</td>
+        <td>{{ form.author }}</td>
       </tr>
       <tr>
         <th>テーマ</th>
@@ -26,6 +23,10 @@
       <tr>
         <th>URLリンク</th>
         <td>{{ form.url_link }}</td>
+      </tr>
+      <tr>
+        <th>添付ファイル</th>
+        <td>{{ form.attached_file }}</td>
       </tr>
     </table>
     <button type="submit" class="btn">保存</button>

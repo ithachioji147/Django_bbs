@@ -1,0 +1,16 @@
+<html>
+
+<a class="btn" href="{% url 'main:new_article' %}">新規投稿</a>
+
+<div class="list">
+    {% for article in articles %}
+    <a href="{% url 'main:detail' article.id %}">
+        <div>
+            {{ article }}
+            <span>{{ article.author }}</span>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+</html>

@@ -17,6 +17,12 @@ class Article(models.Model):
         ('others', 'その他'),
     )
 
+    STATUS_CHOICES = [
+        ('UNAPPROVED', '未承認'),
+        ('APPROVED', '承認済'),
+        ('DELETED', '削除済'),
+    ]
+
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=40)
     thema = models.CharField(max_length=100, choices=THEMAS)
@@ -30,6 +36,11 @@ class Article(models.Model):
     )
     url_link = models.URLField(null=True, blank=True)
     approved_or_not = models.BooleanField(default=False)
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default='UNAPPROVED',
+    )
     created_datetime = models.DateTimeField(auto_now_add=True)
     edited_datetime = models.DateTimeField(auto_now=True)
 

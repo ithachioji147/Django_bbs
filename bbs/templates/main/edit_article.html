@@ -1,8 +1,8 @@
-<div>
+  <div>
     <a href="{% url 'main:index' %}">ホームに戻る</a>
   </div>
 
-  <form action="{% url 'main:new_article' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+  <form action="{% url 'main:edit_article' article.pk %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
     <table>
       <tr>
         <th>タイトル</th>
@@ -26,7 +26,12 @@
       </tr>
       <tr>
         <th>添付ファイル</th>
-        <td>{{ form.attached_file }}</td>
+        <td>
+          添付ファイルの修正はできません。追加・修正する場合は記事を再作成してください<br>
+          {% if article.attached_file %}
+              <a href="{{ article.attached_file.url }}" target="_blank">添付ファイルを見る</a>
+          {% endif %}
+        </td>
       </tr>
     </table>
     <button type="submit" class="btn">保存</button>

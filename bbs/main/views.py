@@ -33,5 +33,13 @@ def delete_article(request, article_id):
 
 def edit_article(request, article_id):
     article = get_object_or_404(Article, id=article_id)
-    form = ArticleForm
+
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, request.FILES, instance=article)
+        if form.is_valid():
+            form.save()
+            return redirect('main:index')
+    else:
+        form = ArticleForm(instance=article)
+
     return render(request, 'main/edit_article.html', {'form': form, 'article': article})

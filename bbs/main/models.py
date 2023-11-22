@@ -1,4 +1,12 @@
+from django.core.exceptions import ValidationError
 from django.db import models
+
+
+def validate_file_size(value):
+    filesize = value.size
+    
+    if filesize > 1024 * 1024 * 1:
+        raise ValidationError("アップロード可能なファイルサイズを超えています。")
 
 
 class Article(models.Model):
@@ -14,7 +22,13 @@ class Article(models.Model):
     thema = models.CharField(max_length=100, choices=THEMAS)
     text = models.TextField(blank=True)
     url_link = models.URLField(blank=True)
-    attached_file = models.FileField(blank=True)
+    attached_file = models.FileField(
+        upload_to='attachment/', 
+        null=True, 
+        blank=True,
+        validators=[validate_file_size]
+    )
+    url_link = models.URLField(null=True, blank=True)
     approved_or_not = models.BooleanField(default=False)
     created_datetime = models.DateTimeField(auto_now_add=True)
     edited_datetime = models.DateTimeField(auto_now=True)

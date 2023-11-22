@@ -4,5 +4,9 @@
 
 <h4>{{ article.title }}</h4>
 <div>
-    {{ article.text }}
+    {{ article.text | linebreaks | urlize }}
 </div>
+
+<form method="post" action="{% url 'main:delete_article' article.pk %}">{% csrf_token %}
+    <button class="btn" type="submit" onclick='return confirm("穏当に削除しますか？");'>削除</button>
+</form>

@@ -11,26 +11,36 @@ def index(request):
         else:
             articles = Article.objects.filter(status='APPROVED').order_by('-edited_datetime')
 
-        status_filter = request.GET.get('status', '')
-        if status_filter != 'all':
-            articles = Article.objects.filter(status=status_filter).order_by('-edited_datetime')
-        else:
-            articles = Article.objects.all().order_by('-edited_datetime')
-
-        return render(request, 'main/index.html', {'articles': articles, 'status_filter': status_filter})
+        return render(request, 'main/index.html', {'articles': articles})
+    
     else:
         return redirect('main:login')    
 
 
 def get_filtered_articles(request):
-    status = request.GET.get('status', 'APPROVED')
-    print(status)
-    theme = request.GET.get('tehme', 'OTHERS')
-    print(theme)
-    filterd_articles = Article.objects.filter(status=status, theme=theme)
-    print(filterd_articles)
-    return render(request, 'main/list.html', {'articles':filterd_articles})
+    status = request.GET.get('status', None)
+    print(f'status={status}')  # デバッグ用
+    theme = request.GET.get('theme', None)
+    print(f'theme={theme}')  # デバッグ用
 
+    if status != 'all' and theme != 'all':
+        filtered_articles = Article.objects.filter(status=status, theme=theme)
+    elif status != 'all':
+        filtered_articles = Article.objects.filter(status=status)
+    elif theme != 'all':
+        filtered_articles = Article.objects.filter(theme=theme)
+    else:
+        filtered_articles = Article.objects.all()
+
+    print(filtered_articles)  # デバッグ用
+    context = {'articles': filtered_articles}
+
+    if not filtered_articles.exists():
+        context['no_results_message'] = '条件に合致する記事は見つかりませんでした。'
+
+    print(context)  # デバッグ用
+
+    return render(request, 'main/list.html', context)
 
 
 def new_article(request):

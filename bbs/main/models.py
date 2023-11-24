@@ -14,7 +14,7 @@ class Article(models.Model):
         ('useful', 'お役立ち情報'),
         ('diseases', '病気・障害について'),
         ('learning', '学習情報'),
-        ('OTHERS', 'その他'),
+        ('others', 'その他'),
     )
 
     STATUS_CHOICES = [
@@ -26,7 +26,6 @@ class Article(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=40)
     theme = models.CharField(max_length=100, choices=THEMES)
-    thema = models.CharField(max_length=100, choices=THEMES)
     text = models.TextField(blank=True)
     url_link = models.URLField(blank=True)
     attached_file = models.FileField(
@@ -36,7 +35,6 @@ class Article(models.Model):
         validators=[validate_file_size]
     )
     url_link = models.URLField(null=True, blank=True)
-    approved_or_not = models.BooleanField(default=False)
     status = models.CharField(
         max_length=10,
         choices=STATUS_CHOICES,

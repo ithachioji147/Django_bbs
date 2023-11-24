@@ -41,11 +41,6 @@
             function updateFilters() {
                 const status = document.getElementById('statusFilter').value;
                 const theme = document.getElementById('themeFilter').value;
-                
-                // プルダウンメニューの内容をクエリ文字列でビューに渡す
-            //     const queryParams = new URLSearchParams({status, theme}).toString();
-            //     location.href = '?' + queryParams;
-            // }
 
                 // テンプレートファイルからリスト部分を読み込んで置き換える
                 fetch(`/list/?status=${status}&theme=${theme}`)
@@ -61,21 +56,9 @@
             document.getElementById('themeFilter').addEventListener('change', updateFilters);
         </script>
 
-
         <!-- 記事リスト表示部分 -->
-        <!-- list_templateへ -->
-        <!-- <div class="list">
-            {% for article in articles %}
-            <a href="{% url 'main:detail' article.id %}">
-                <div>
-                    {{ article }}
-                    <span>{{ article.author }}</span>
-                </div>
-            </a>
-            {% endfor %}
-        </div> -->
+        {% include 'main/list.html' %}
 
-    {% include 'main/list.html' %}
 
     {% else %}
     <p>このページは表示できません。ログインページよりログインしてください。</p>

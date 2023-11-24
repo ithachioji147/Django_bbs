@@ -1,12 +1,15 @@
-<!-- 記事リスト表示部分 -->
-<p>ここからリスト</p>
-<div class="list">
-    {% for article in articles %}
-    <a href="{% url 'main:detail' article.id %}">
-        <div>
-            {{ article.title }}
-        </div>
-    </a>
-    {% endfor %}
+<div class="list" id="articleList">
+    <p>-------------------------------</p>
+    {% if articles %}
+        {% for article in articles %}
+        <a href="{% url 'main:detail' article.id %}">
+            <div>
+                {{ article.title }}
+            </div>
+        </a>
+        {% endfor %}
+    {% else %}
+        <p>{{ no_results_message }}</p>
+    {% endif %}
+    <p>------------------------------</p>
 </div>
-<p>ここまでリスト</p>

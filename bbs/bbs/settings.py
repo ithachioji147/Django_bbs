@@ -127,7 +127,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 以下自分で追加した部分
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = '/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+SESSION_COOKIE_AGE = 30 * 24 * 60 * 60

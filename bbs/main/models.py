@@ -18,7 +18,7 @@ class Article(models.Model):
     )
 
     STATUS_CHOICES = [
-        ('UNAPPROVED', '未承認'),
+        ('DRAFT', '未承認'),
         ('APPROVED', '承認済'),
         ('DELETED', '削除済'),
     ]
@@ -39,7 +39,7 @@ class Article(models.Model):
     status = models.CharField(
         max_length=10,
         choices=STATUS_CHOICES,
-        default='UNAPPROVED',
+        default='DRAFT',
     )
     created_datetime = models.DateTimeField(auto_now_add=True)
     edited_datetime = models.DateTimeField(auto_now=True)

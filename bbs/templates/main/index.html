@@ -1,16 +1,72 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+  </head>
 
-<a class="btn" href="{% url 'main:new_article' %}">新規投稿</a>
+  <body>
+    <!-- ユーザー認証できていたらページを表示する -->
+    {% if request.user.is_authenticated %}
 
-<div class="list">
-    {% for article in articles %}
-    <a href="{% url 'main:detail' article.id %}">
-        <div>
-            {{ article }}
-            <span>{{ article.author }}</span>
+        <!-- 新規投稿 -->
+        <a class="btn" href="{% url 'main:new_article' %}">新規投稿</a>
+
+        <!-- ログアウト -->
+        <form action="{% url 'main:logout' %}" method="post">{% csrf_token %}
+            <button type="submit">ログアウト</button>
+        </form>
+
+        <!-- テーマ絞込みプルダウン -->
+        <label for="themeFilter">テーマで絞り込み：</label>
+        <select id="themeFilter" name="theme">
+            <option value="all">全て</option>
+            <option value="useful">お役立ち情報</option>
+            <option value="diseases">病気・障害について</option>
+            <option value="learning">学習情報</option>
+            <option value="others">その他</option>
+        </select>
+
+        <!-- スタッフがログインした場合のみ、ステータス絞込みプルダウンを表示 -->
+        {% if user.is_staff %}
+            <label for="statusFilter">ステータスで絞り込み：</label>
+            <select id="statusFilter" name="status">
+                <option value="all">全て</option>
+                <option value="DRAFT">未承認</option>
+                <option value="APPROVED">承認済</option>
+                <option value="DELETED">削除済</option>
+            </select>
+        {% endif %}
+
+        <script type="text/javascript">
+            function updateFilters() {
+                // プルダウンメニューの内容をクエリ文字列でビューに渡す
+                const status = document.getElementById('statusFilter').value;
+                const theme = document.getElementById('themeFilter').value;
+                const queryParams = new URLSearchParams({status, theme}).toString();
+                location.href = '?' + queryParams;
+            }
+            
+            // プルダウンメニューが変更されたらページ再読み込み関数を実行
+            document.getElementById('statusFilter').addEventListener('change', updateFilters);
+            document.getElementById('themeFilter').addEventListener('change', updateFilters);
+        </script>
+
+
+        <!-- 記事リスト表示部分 -->
+        <div class="list">
+            {% for article in articles %}
+            <a href="{% url 'main:detail' article.id %}">
+                <div>
+                    {{ article }}
+                    <span>{{ article.author }}</span>
+                </div>
+            </a>
+            {% endfor %}
         </div>
-    </a>
-    {% endfor %}
-</div>
 
+    {% else %}
+    <p>このページは表示できません。ログインページよりログインしてください。</p>
+
+    {% endif %}
+  </body>
 </html>

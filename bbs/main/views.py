@@ -5,8 +5,21 @@ from .forms import ArticleForm
 
 
 def index(request):
-    articles = Article.objects.all().order_by('-edited_datetime')
-    return render(request, 'main/index.html', {'articles': articles})
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            articles = Article.objects.all().order_by('-edited_datetime')
+        else:
+            articles = Article.objects.filter(status='APPROVED').order_by('-edited_datetime')
+
+        status_filter = request.GET.get('status', '')
+        if status_filter != 'all':
+            articles = Article.objects.filter(status=status_filter).order_by('-edited_datetime')
+        else:
+            articles = Article.objects.all().order_by('-edited_datetime')
+
+        return render(request, 'main/index.html', {'articles': articles, 'status_filter': status_filter})
+    else:
+        return redirect('main:login')    
 
 
 def new_article(request):

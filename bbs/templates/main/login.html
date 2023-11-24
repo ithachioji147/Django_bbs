@@ -1,1 +1,5 @@
-<p>ログインページ</p> 
+<form method="post" action="{% url 'main:login' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">ログイン</button>
+</form>

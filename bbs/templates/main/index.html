@@ -39,21 +39,32 @@
 
         <script type="text/javascript">
             function updateFilters() {
-                // プルダウンメニューの内容をクエリ文字列でビューに渡す
                 const status = document.getElementById('statusFilter').value;
                 const theme = document.getElementById('themeFilter').value;
-                const queryParams = new URLSearchParams({status, theme}).toString();
-                location.href = '?' + queryParams;
+                
+                // プルダウンメニューの内容をクエリ文字列でビューに渡す
+            //     const queryParams = new URLSearchParams({status, theme}).toString();
+            //     location.href = '?' + queryParams;
+            // }
+
+                // テンプレートファイルからリスト部分を読み込んで置き換える
+                fetch(`/list/?status=${status}&theme=${theme}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        const listContainer = document.getElementById('articleList');
+                        listContainer.innerHTML = data;
+                    });
             }
             
-            // プルダウンメニューが変更されたらページ再読み込み関数を実行
+            // プルダウンメニューが変更された際のイベントリスナー
             document.getElementById('statusFilter').addEventListener('change', updateFilters);
             document.getElementById('themeFilter').addEventListener('change', updateFilters);
         </script>
 
 
         <!-- 記事リスト表示部分 -->
-        <div class="list">
+        <!-- list_templateへ -->
+        <!-- <div class="list">
             {% for article in articles %}
             <a href="{% url 'main:detail' article.id %}">
                 <div>
@@ -62,7 +73,9 @@
                 </div>
             </a>
             {% endfor %}
-        </div>
+        </div> -->
+
+    {% include 'main/list.html' %}
 
     {% else %}
     <p>このページは表示できません。ログインページよりログインしてください。</p>

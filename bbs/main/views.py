@@ -22,6 +22,17 @@ def index(request):
         return redirect('main:login')    
 
 
+def get_filtered_articles(request):
+    status = request.GET.get('status', 'APPROVED')
+    print(status)
+    theme = request.GET.get('tehme', 'OTHERS')
+    print(theme)
+    filterd_articles = Article.objects.filter(status=status, theme=theme)
+    print(filterd_articles)
+    return render(request, 'main/list.html', {'articles':filterd_articles})
+
+
+
 def new_article(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES)

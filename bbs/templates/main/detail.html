@@ -7,7 +7,8 @@
     {{ article.text | linebreaks | urlize }}
 
     {% if article.url_link %}
-    {{ memo.url_link | linebreaks | urlize }}
+    <p>リンク</p>
+    {{ article.url_link | linebreaks | urlize }}
     {% endif %}
 
     {% if article.attached_file %}

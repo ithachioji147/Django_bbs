@@ -10,11 +10,11 @@ def validate_file_size(value):
 
 
 class Article(models.Model):
-    THEMAS = (
+    THEMES = (
         ('useful', 'お役立ち情報'),
         ('diseases', '病気・障害について'),
         ('learning', '学習情報'),
-        ('others', 'その他'),
+        ('OTHERS', 'その他'),
     )
 
     STATUS_CHOICES = [
@@ -25,7 +25,8 @@ class Article(models.Model):
 
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=40)
-    thema = models.CharField(max_length=100, choices=THEMAS)
+    theme = models.CharField(max_length=100, choices=THEMES)
+    thema = models.CharField(max_length=100, choices=THEMES)
     text = models.TextField(blank=True)
     url_link = models.URLField(blank=True)
     attached_file = models.FileField(

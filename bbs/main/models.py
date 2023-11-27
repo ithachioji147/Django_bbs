@@ -30,7 +30,7 @@ class Article(models.Model):
     author = models.CharField(max_length=40)
     theme = models.CharField(max_length=100, choices=THEMES)
     text = models.TextField(blank=True)
-    url_link = models.URLField(blank=True)
+    # url_link = models.URLField(blank=True)
     attached_file = models.FileField(
         upload_to='attachment/', 
         null=True, 
@@ -53,14 +53,14 @@ class Article(models.Model):
         app_label = 'main'
 
 
-@receiver(pre_save, sender=Article)
-def update_edited_datetime(sender, instance, **kwargs):
-    if instance.pk is not None:
-        original_instance = sender.objects.get(pk=instance.pk)
-        if instance == original_instance:
-            print(original_instance.edited_datetime)
-            return
+# @receiver(pre_save, sender=Article)
+# def update_edited_datetime(sender, instance, **kwargs):
+#     if instance.pk is not None:
+#         original_instance = sender.objects.get(pk=instance.pk)
+#         if instance == original_instance:
+#             print(original_instance.edited_datetime)
+#             return
         
-    instance.edited_datetime = timezone.now()
+#     instance.edited_datetime = timezone.now()
 
 

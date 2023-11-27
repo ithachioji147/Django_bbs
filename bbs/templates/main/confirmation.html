@@ -9,14 +9,14 @@
 <body>
     <div class="message">
         <p>{{ message }}</p>
-        <p>５秒後に {{ redirect_page_name }} が表示されます。</p>
+        <p>３秒後にトップページ（記事一覧）へ戻ります。</p>
     </div>
 
     <!-- 5秒後にリダイレクト -->
     <script>
         setTimeout(function() {
-            window.location.href = '/{{ redirect_to }}'; // リダイレクト先
-        }, 5000);
+            window.location.href = '/';  // トップページへリダイレクト
+        }, 3000);  // ３秒後
     </script>
 </body>
 </html>

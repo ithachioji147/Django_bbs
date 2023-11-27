@@ -8,21 +8,12 @@
   <div>
     <a href="{% url 'main:index' %}">ホームに戻る</a>
   </div>
-    
-
-  <!-- <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function(){
-      const form = document.getElementById('')
-    });
-
-  </script> -->
-
-
-  <form action="{% url 'main:edit_article' article.pk %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+  
+  <form id="article_input_form" action="{% url 'main:edit_article' article.pk %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
     <table>
       <tr>
         <th>タイトル</th>
-        <td>{{ form.title }}</td>
+        <td id="title">{{ form.title }}</td>
       </tr>
       <tr>
         <th>名前</th>
@@ -30,16 +21,16 @@
       </tr>
       <tr>
         <th>テーマ</th>
-        <td>{{ form.theme }}</td>
+        <td id="theme">{{ form.theme }}</td>
       </tr>
       <tr>
         <th>本文</th>
-        <td>{{ form.text }}</td>
+        <td id="text">{{ form.text }}</td>
       </tr>
-      <tr>
+      <!-- <tr>
         <th>URLリンク</th>
         <td>{{ form.url_link }}</td>
-      </tr>
+      </tr> -->
       <tr>
         <th>添付ファイル</th>
         <td>
@@ -50,7 +41,7 @@
         </td>
       </tr>
     </table>
-    <button type="submit" class="btn">保存</button>
+    <button type="submit" class="btn" id="saveButton">保存</button>
   </form>
 
   {% if form.errors %}
@@ -61,7 +52,30 @@
   </ul>
   {% endif %}
 
+  <script type="text/javascript">
+    const form = document.getElementById('article_input_form')
+    const saveButton = document.getElementById('saveButton')
 
+    const originalFormData = new FormData(form); 
+    saveButton.disabled = true;
+    console.log(originalFormData)
+
+    form.addEventListener('input', () => {
+      const currentFormData = new FormData(form);
+      const formNotChanged = compareFormData(originalFormData, currentFormData)
+      saveButton.disabled = formNotChanged
+    })
+
+    function compareFormData(formData1, formData2){
+      for (const [key, value] of formData1.entries()){
+        if (formData2.get(key) !== value){
+          return false;
+        }
+      }
+      return true;
+    }
+
+  </script>
   
 </body>
 </html>

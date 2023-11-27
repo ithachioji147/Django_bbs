@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
+from django.urls import reverse
 # from django.contrib import messages
 from .models import Article
 from .forms import ArticleForm
@@ -49,8 +50,8 @@ def new_article(request):
         form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            # messages.success(request, '投稿が完了しました。投稿内容は、スタッフによる承認後、記事一覧に公開されます。')
-            # return redirect('main:index')
+            message = '投稿が完了しました。スタッフの承認後、投稿した記事が公開となります。'
+            return render(request, 'main/confirmation.html', {'message': message})
     else:
         form = ArticleForm
     return render(request, 'main/new_article.html', {'form': form})
@@ -73,19 +74,20 @@ def edit_article(request, article_id):
 
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES, instance=article)
-        if form.has_changed():
-            if form.is_valid():
-                form.save()
-                message = '編集を保存しました。スタッフの承認後、編集後の記事が公開となります。'
-                redirect_page_name = '記事一覧画面'
-                return redirect('main:redirect_message', message=message, redirect_to='main:index', redirect_page_name=redirect_page_name)
-        return redirect('main:index')
+        # if form.has_changed():
+        if form.is_valid():
+            form.save()
+            message = '編集を保存しました。スタッフの承認後、編集後の記事が公開となります。'
+            return render(request, 'main/confirmation.html', {'message': message})
+            
+        # return redirect('main:index')
     else:
         form = ArticleForm(instance=article)
 
     return render(request, 'main/edit_article.html', {'form': form, 'article': article})
 
 
-def redirect_message(request, message, redirect_to, redirect_page_name):
-    context = {'message': message, 'redirect_to': redirect_to, 'redirect_page_name': redirect_page_name}
-    return render(request, 'main/redirect_message.html', context)
+def confirmation(request):
+    message = request.GET.get('message', '')
+    context = {'message': message}
+    return render(request, 'main:confirmation', context)

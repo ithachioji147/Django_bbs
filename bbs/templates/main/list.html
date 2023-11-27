@@ -1,13 +1,28 @@
 <div class="list" id="articleList">
     <p>-------------------------------</p>
     {% if articles %}
-        {% for article in articles %}
-        <a href="{% url 'main:detail' article.id %}">
-            <div>
-                {{ article.title }}
-            </div>
-        </a>
-        {% endfor %}
+    <div>
+        <table>
+            <tr>
+                <th>投稿者</th>
+                <th>タイトル</th>
+                <th>投稿（編集）日時</th>
+            </tr>
+            {% for article in articles %}
+            <tr>
+                <td>
+                    {{ article.author }}
+                </td>
+                <td>
+                    <a href="{% url 'main:detail' article.id %}">{{ article.title }}</a>
+                </td>
+                <td>
+                    {{ article.edited_datetime}}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
     {% else %}
         <p>{{ no_results_message }}</p>
     {% endif %}

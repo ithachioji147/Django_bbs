@@ -13,7 +13,7 @@
     <table>
       <tr>
         <th>タイトル</th>
-        <td id="title">{{ form.title }}</td>
+        <td>{{ form.title }}</td>
       </tr>
       <tr>
         <th>名前</th>
@@ -21,16 +21,12 @@
       </tr>
       <tr>
         <th>テーマ</th>
-        <td id="theme">{{ form.theme }}</td>
+        <td>{{ form.theme }}</td>
       </tr>
       <tr>
         <th>本文</th>
-        <td id="text">{{ form.text }}</td>
+        <td>{{ form.text }}</td>
       </tr>
-      <!-- <tr>
-        <th>URLリンク</th>
-        <td>{{ form.url_link }}</td>
-      </tr> -->
       <tr>
         <th>添付ファイル</th>
         <td>
@@ -40,6 +36,12 @@
           {% endif %}
         </td>
       </tr>
+      {% if user.is_staff %}
+      <tr>
+        <th>ステータス</th>
+        <td>{{ form.status }}</td>
+      </tr>
+      {% endif %}
     </table>
     <button type="submit" class="btn" id="saveButton">保存</button>
   </form>
@@ -53,11 +55,12 @@
   {% endif %}
 
   <script type="text/javascript">
+    // フォームの内容が変更されたとき保存ボタンを使用可能とする
     const form = document.getElementById('article_input_form')
     const saveButton = document.getElementById('saveButton')
 
     const originalFormData = new FormData(form); 
-    saveButton.disabled = true;
+    saveButton.disabled = true;  // 初期値はボタン使用不可
     console.log(originalFormData)
 
     form.addEventListener('input', () => {

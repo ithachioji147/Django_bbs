@@ -7,6 +7,9 @@
                 <th>投稿者</th>
                 <th>タイトル</th>
                 <th>投稿（編集）日時</th>
+                {% if user.is_staff %}
+                <th>ステータス</th>
+                {% endif %}
             </tr>
             {% for article in articles %}
             <tr>
@@ -19,6 +22,11 @@
                 <td>
                     {{ article.edited_datetime}}
                 </td>
+                {% if user.is_staff %}
+                <td>
+                    {{ article.status}}
+                </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </table>

@@ -1,20 +1,6 @@
 <div>
-    <a href="{% url 'main:index' %}">ホームに戻る</a>
-  </div>
-
-  {% if messages %}
-    <ul class="messages">
-      {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-      {% endfor %}
-    </ul>
-    <script>
-      // メッセージが表示された後にリダイレクトする
-      setTimeout(function() {
-        window.location.href = "{% url 'main:index' %}";
-      }, 5000);  // 5000ミリ秒（5秒）待機
-    </script>
-  {% endif %}
+  <a href="{% url 'main:index' %}">ホームに戻る</a>
+</div>
 
 
   <form action="{% url 'main:new_article' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
@@ -35,14 +21,19 @@
         <th>本文</th>
         <td>{{ form.text }}</td>
       </tr>
-      <!-- <tr>
-        <th>URLリンク</th>
-        <td>{{ form.url_link }}</td>
-      </tr>
-      <tr> -->
+      <tr>
         <th>添付ファイル</th>
         <td>{{ form.attached_file }}</td>
       </tr>
+      <!-- {% if user.is_staff %} -->
+      <tr>
+        <th>ステータス</th>
+        <td>{{ form.status }}</td>
+      </tr>
+      <!-- {% endif %} -->
+      <tr>
+        <th>パスコード</th>
+        <td>{{ form.passcode }}</td>
     </table>
     <button type="submit" class="btn">保存</button>
   </form>

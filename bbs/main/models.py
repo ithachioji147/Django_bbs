@@ -45,6 +45,7 @@ class Article(models.Model):
     )
     created_datetime = models.DateTimeField(auto_now_add=True)
     edited_datetime = models.DateTimeField(auto_now=True)
+    passcode = models.CharField(blank=True, null=True, max_length=4)
 
     def __str__(self):
         return self.title
@@ -52,7 +53,7 @@ class Article(models.Model):
     class Meta:
         app_label = 'main'
 
-
+    
 # @receiver(pre_save, sender=Article)
 # def update_edited_datetime(sender, instance, **kwargs):
 #     if instance.pk is not None:

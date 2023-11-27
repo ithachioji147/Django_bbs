@@ -8,11 +8,10 @@ from .forms import ArticleForm
 
 def index(request):
     if request.user.is_authenticated:
-        if request.user.is_staff:
-            articles = Article.objects.all().order_by('-edited_datetime')
-        else:
-            articles = Article.objects.filter(status='APPROVED').order_by('-edited_datetime')
-
+    #     if request.user.is_staff:
+    #         articles = Article.objects.all().order_by('-edited_datetime')
+    #     else:
+        articles = Article.objects.filter(status='APPROVED').order_by('-edited_datetime')
         return render(request, 'main/index.html', {'articles': articles})
     
     else:
@@ -26,13 +25,13 @@ def get_filtered_articles(request):
     print(f'theme={theme}')  # デバッグ用
 
     if status != 'all' and theme != 'all':
-        filtered_articles = Article.objects.filter(status=status, theme=theme)
+        filtered_articles = Article.objects.filter(status=status, theme=theme).order_by('-edited_datetime')
     elif status != 'all':
-        filtered_articles = Article.objects.filter(status=status)
+        filtered_articles = Article.objects.filter(status=status).order_by('-edited_datetime')
     elif theme != 'all':
-        filtered_articles = Article.objects.filter(theme=theme)
+        filtered_articles = Article.objects.filter(theme=theme).order_by('-edited_datetime')
     else:
-        filtered_articles = Article.objects.all()
+        filtered_articles = Article.objects.all().order_by('-edited_datetime')
 
     print(filtered_articles)  # デバッグ用
     context = {'articles': filtered_articles}
@@ -47,7 +46,7 @@ def get_filtered_articles(request):
 
 def new_article(request):
     if request.method == 'POST':
-        form = ArticleForm(request.POST, request.FILES)
+        form = ArticleForm(request.POST, request.FILES, initial={'status': 'DRAFT'})
         if form.is_valid():
             form.save()
             message = '投稿が完了しました。スタッフの承認後、投稿した記事が公開となります。'
@@ -65,8 +64,10 @@ def detail(request, article_id):
 @require_POST
 def delete_article(request, article_id):
     article = get_object_or_404(Article, id=article_id)
-    article.delete()
-    return redirect('main:index')
+    article.status = 'DELETED'
+    article.save()
+    message = '該当の記事を一覧から削除しました（データは残っているため復旧は可能です）。'
+    return render(request, 'main/confirmation.html', {'message': message})
 
 
 def edit_article(request, article_id):

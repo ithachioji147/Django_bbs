@@ -19,7 +19,7 @@
         <!-- テーマ絞込みプルダウン -->
         <label for="themeFilter">テーマで絞り込み：</label>
         <select id="themeFilter" name="theme">
-            <option value="all">全て</option>
+            <option value="all" selected>全て</option>
             <option value="useful">お役立ち情報</option>
             <option value="diseases">病気・障害について</option>
             <option value="learning">学習情報</option>
@@ -32,7 +32,7 @@
             <select id="statusFilter" name="status">
                 <option value="all">全て</option>
                 <option value="DRAFT">未承認</option>
-                <option value="APPROVED">承認済</option>
+                <option value="APPROVED" selected>承認済</option>
                 <option value="DELETED">削除済</option>
             </select>
         {% endif %}

@@ -3,6 +3,7 @@
 </div>
 
 <h4>{{ article.title }}</h4>
+<h5>{{ article.author }}</h5>
 <div>
     {{ article.text | linebreaks | urlize }}
 
@@ -16,6 +17,7 @@
         <a href="{{ article.attached_file.url }}" target="_blank">添付ファイルを見る</a>
     </div>
     {% endif %}
+    <p>{{ article.created_datetime }}</p>
 </div>
 
 <div>

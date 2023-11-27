@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>メッセージ</title>
+</head>
+
+<body>
+    <div class="message">
+        <p>{{ message }}</p>
+        <p>５秒後に {{ redirect_page_name }} が表示されます。</p>
+    </div>
+
+    <!-- 5秒後にリダイレクト -->
+    <script>
+        setTimeout(function() {
+            window.location.href = '/{{ redirect_to }}'; // リダイレクト先
+        }, 5000);
+    </script>
+</body>
+</html>

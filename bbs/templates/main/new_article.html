@@ -2,6 +2,21 @@
     <a href="{% url 'main:index' %}">ホームに戻る</a>
   </div>
 
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    <script>
+      // メッセージが表示された後にリダイレクトする
+      setTimeout(function() {
+        window.location.href = "{% url 'main:index' %}";
+      }, 5000);  // 5000ミリ秒（5秒）待機
+    </script>
+  {% endif %}
+
+
   <form action="{% url 'main:new_article' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
     <table>
       <tr>

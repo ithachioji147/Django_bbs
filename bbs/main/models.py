@@ -1,5 +1,8 @@
-from django.core.exceptions import ValidationError
 from django.db import models
+from django.core.exceptions import ValidationError
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.utils import timezone
 
 
 def validate_file_size(value):
@@ -10,12 +13,12 @@ def validate_file_size(value):
 
 
 class Article(models.Model):
-    THEMES = (
+    THEMES = [
         ('useful', 'お役立ち情報'),
         ('diseases', '病気・障害について'),
         ('learning', '学習情報'),
         ('others', 'その他'),
-    )
+    ]
 
     STATUS_CHOICES = [
         ('DRAFT', '未承認'),
@@ -48,3 +51,16 @@ class Article(models.Model):
 
     class Meta:
         app_label = 'main'
+
+
+@receiver(pre_save, sender=Article)
+def update_edited_datetime(sender, instance, **kwargs):
+    if instance.pk is not None:
+        original_instance = sender.objects.get(pk=instance.pk)
+        if instance == original_instance:
+            print(original_instance.edited_datetime)
+            return
+        
+    instance.edited_datetime = timezone.now()
+
+

@@ -14,6 +14,7 @@ urlpatterns = [
     path('<int:article_id>', views.detail, name='detail'),
     path('delete_article/<int:article_id>', views.delete_article, name='delete_article'),
     path('edit_article/<int:article_id>', views.edit_article, name='edit_article'),
+    path('redirect_message/', views.redirect_message, name='redirect_message'),
 
 ]
 

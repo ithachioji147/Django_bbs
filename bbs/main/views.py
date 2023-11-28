@@ -18,7 +18,7 @@ def index(request):
         return redirect('main:login')    
 
 
-def get_filtered_articles(request):
+def get_filtered_articles(request):  # 記事一覧をプルダウンで絞り込む
     status = request.GET.get('status', None)
     print(f'status={status}')  # デバッグ用
     theme = request.GET.get('theme', None)
@@ -33,7 +33,6 @@ def get_filtered_articles(request):
     else:
         filtered_articles = Article.objects.all().order_by('-edited_datetime')
 
-    print(filtered_articles)  # デバッグ用
     context = {'articles': filtered_articles}
 
     if not filtered_articles.exists():
@@ -47,7 +46,7 @@ def get_filtered_articles(request):
 def new_article(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES, initial={'status': 'DRAFT'})
-        if form.is_valid():
+        if form.is_valid():            
             form.save()
             message = '投稿が完了しました。スタッフの承認後、投稿した記事が公開となります。'
             return render(request, 'main/confirmation.html', {'message': message})
@@ -75,15 +74,23 @@ def edit_article(request, article_id):
 
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES, instance=article)
-        # if form.has_changed():
+        # if form.has_changed():  # JSでボタン制御するため不要
         if form.is_valid():
+            if not request.user.is_staff:
+                article.status = 'DRAFT'
+                message = '編集を保存しました。スタッフの承認後、編集後の記事が公開となります。'
+            else:
+                if article.status == 'APPROVED':
+                    message = '編集を保存しました。該当の記事が公開となります。'
+                else:
+                    message = '編集を保存しました。'
             form.save()
-            message = '編集を保存しました。スタッフの承認後、編集後の記事が公開となります。'
             return render(request, 'main/confirmation.html', {'message': message})
             
         # return redirect('main:index')
     else:
         form = ArticleForm(instance=article)
+
 
     return render(request, 'main/edit_article.html', {'form': form, 'article': article})
 

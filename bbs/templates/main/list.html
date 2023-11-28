@@ -6,7 +6,7 @@
             <tr>
                 <th>投稿者</th>
                 <th>タイトル</th>
-                <th>投稿（編集）日時</th>
+                <th>投稿日時</th>
                 {% if user.is_staff %}
                 <th>ステータス</th>
                 {% endif %}
@@ -20,7 +20,7 @@
                     <a href="{% url 'main:detail' article.id %}">{{ article.title }}</a>
                 </td>
                 <td>
-                    {{ article.edited_datetime}}
+                    {{ article.created_datetime}}
                 </td>
                 {% if user.is_staff %}
                 <td>

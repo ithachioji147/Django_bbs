@@ -30,17 +30,16 @@ class Article(models.Model):
     author = models.CharField(max_length=40)
     theme = models.CharField(max_length=100, choices=THEMES)
     text = models.TextField(blank=True)
-    # url_link = models.URLField(blank=True)
     attached_file = models.FileField(
         upload_to='attachment/', 
         null=True, 
         blank=True,
         validators=[validate_file_size]
     )
-    url_link = models.URLField(null=True, blank=True)
     status = models.CharField(
         max_length=10,
         choices=STATUS_CHOICES,
+        blank=True,
         default='DRAFT',
     )
     created_datetime = models.DateTimeField(auto_now_add=True)

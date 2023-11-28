@@ -20,7 +20,7 @@
                     <a href="{% url 'main:detail' article.id %}">{{ article.title }}</a>
                 </td>
                 <td>
-                    {{ article.created_datetime}}
+                    {{ article.created_datetime | date:"Y-m-j"}}
                 </td>
                 {% if user.is_staff %}
                 <td>
@@ -35,4 +35,5 @@
         <p>{{ no_results_message }}</p>
     {% endif %}
     <p>------------------------------</p>
+
 </div>

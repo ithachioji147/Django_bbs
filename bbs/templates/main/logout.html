@@ -1,6 +1,14 @@
-<html>
-    <p>ログアウトしました。</p>
-    <div>
-        <a href="{% url 'main:login' %}">ログイン画面に戻る</a>
-      </div>
-</html>
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<div>
+  <p>ログアウトしました。</p>
+  <p>おつかれさまでした！</p>
+  <br>
+  <div class="verticalmargin">
+    <a class="btn narrow" href="{% url 'main:login' %}">ログイン画面に戻る</a>
+  </div>
+</div>
+  
+{% endblock %}

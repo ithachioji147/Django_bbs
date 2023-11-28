@@ -1,5 +1,5 @@
 <div class="list" id="articleList">
-    <p>-------------------------------</p>
+    <p>----------------------------------------</p>
     {% if articles %}
     <div>
         <table>
@@ -17,7 +17,9 @@
                     {{ article.author }}
                 </td>
                 <td>
-                    <a href="{% url 'main:detail' article.id %}">{{ article.title }}</a>
+                    <a href="{% url 'main:detail' article.id %}">
+                        {{ article.title }}
+                    </a>
                 </td>
                 <td>
                     {{ article.created_datetime | date:"Y-m-j"}}
@@ -34,6 +36,6 @@
     {% else %}
         <p>{{ no_results_message }}</p>
     {% endif %}
-    <p>------------------------------</p>
+    <p>----------------------------------------</p>
 
 </div>

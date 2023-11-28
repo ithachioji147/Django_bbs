@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>記事投稿</title>
-</head>
-<body>
-  <div>
-    <a href="{% url 'main:index' %}">ホームに戻る</a>
-  </div>
-  
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<div class="article-area">
   <form id="article_input_form" action="{% url 'main:edit_article' article.pk %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
     <table>
       <tr>
@@ -29,8 +23,9 @@
       </tr>
       <tr>
         <th>添付ファイル</th>
-        <td>
-          添付ファイルの修正はできません。追加・修正する場合は記事を再作成してください<br>
+        <td class="textmessage">
+          <p>添付ファイルの追加・修正はできません。</p> 
+          <p>追加・修正する場合は記事を再作成してください。</p>
           {% if article.attached_file %}
               <a href="{{ article.attached_file.url }}" target="_blank">添付ファイルを見る</a>
           {% endif %}
@@ -43,8 +38,14 @@
       </tr>
       <!-- {% endif %} -->
     </table>
-    <button type="submit" class="btn" id="saveButton">保存</button>
+      
+    <div class="button-area">
+      <a class="btn narrow" href="{% url 'main:index' %}">キャンセル</a>
+      <button type="submit" class="btn narrow" id="saveButton">更新</button>
+    </div>
+
   </form>
+</div>
 
   {% if form.errors %}
   <ul class="errorlist">
@@ -80,5 +81,4 @@
 
   </script>
   
-</body>
-</html>
+  {% endblock %}

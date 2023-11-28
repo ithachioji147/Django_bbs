@@ -5,29 +5,26 @@
     <!-- ユーザー認証できていたらページを表示する -->
     {% if request.user.is_authenticated %}
 
-        <div class="button-area">
+        <div class="button-area">  
             <!-- 新規投稿 -->
-            <a class="btn left" href="{% url 'main:new_article' %}">新規投稿</a>
-
-            <!-- ログアウト -->
-            <form action="{% url 'main:logout' %}" method="post">{% csrf_token %}
-                <button type="submit" class="btn right">ログアウト</button>
-            </form>
+            <a class="btn narrow" href="{% url 'main:new_article' %}">新規投稿</a>
         </div>
 
         <div class="pulldown-area">
             <!-- テーマ絞込みプルダウン -->
-            <label for="themeFilter">テーマで絞り込み：</label>
-            <select id="themeFilter" name="theme">
-                <option value="all" selected>全て</option>
-                <option value="useful">お役立ち情報</option>
-                <option value="diseases">病気・障害について</option>
-                <option value="learning">学習情報</option>
-                <option value="others">その他</option>
-            </select>
+            <div class="pulldown">
+                <label for="themeFilter">テーマで絞り込み：</label>
+                <select id="themeFilter" name="theme">
+                    <option value="all" selected>全て</option>
+                    <option value="useful">お役立ち情報</option>
+                    <option value="diseases">病気・障害について</option>
+                    <option value="learning">学習情報</option>
+                    <option value="others">その他</option>
+                </select>
+            </div>
 
             <!-- スタッフがログインした場合のみ、ステータス絞込みプルダウンを表示 -->
-            {% if user.is_staff %}
+            <div class="pulldown {% if user.is_staff %}visible{% else %}hidden{% endif %}">
                 <label for="statusFilter">ステータスで絞り込み：</label>
                 <select id="statusFilter" name="status">
                     <option value="all">全て</option>
@@ -35,13 +32,23 @@
                     <option value="APPROVED" selected>承認済</option>
                     <option value="DELETED">削除済</option>
                 </select>
-            {% endif %}
+            </div>
         </div>
 
         <script type="text/javascript">
             function updateFilters() {
-                const status = document.getElementById('statusFilter').value;
+                console.log('pulldown changed!')
+
                 const theme = document.getElementById('themeFilter').value;
+                const status = document.getElementById('statusFilter').value;
+                
+                // document.addEventListener('DOMContentLoaded', function(){
+                // const statusFilterIsValid = document.getElementById('statusFilter');
+                // if (statusFilterIsValid){
+                //     status = document.getElementById('statusFilter').value;
+                // } else {
+                //     status = 'APPROVED';
+                // }})
 
                 // テンプレートファイルからリスト部分を読み込んで置き換える
                 fetch(`/list/?status=${status}&theme=${theme}`)
@@ -52,13 +59,31 @@
                     });
             }
             
-            // プルダウンメニューが変更された際のイベントリスナー
-            document.getElementById('statusFilter').addEventListener('change', updateFilters);
+            // イベントリスナーの設置（テーマ絞込みドロップダウン）
             document.getElementById('themeFilter').addEventListener('change', updateFilters);
+            
+            // イベントリスナーの設置（ステータス絞込みドロップダウン、表示時のみ）
+            document.addEventListener('DOMContentLoaded', function(){
+                const statusFilterIsValid = document.getElementById('statusFilter');
+                if (statusFilterIsValid){
+                    statusFilterIsValid.addEventListener('change', updateFilters);
+                }
+            })
+
+            // document.getElementById('statusFilter').addEventListener('change', updateFilters);
+
         </script>
 
         <!-- 記事リスト表示部分 -->
         {% include 'main/list.html' %}
+
+        <!-- ログアウト -->
+        <!-- <div class="button-area"> -->
+        <div class="verticalmargin">
+            <form action="{% url 'main:logout' %}" method="post">{% csrf_token %}
+                <button type="submit" class="btn narrow">ログアウト</button>
+            </form>
+        </div>
 
 
     {% else %}

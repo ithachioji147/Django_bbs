@@ -8,12 +8,14 @@
     vertical-align: center;
     font-family: "Meiryo", "ヒラギノ丸ゴ ProN W4", "sans-serif";
     letter-spacing: 0.05em;
+    text-indent: 0.05em;
 }
 
 :root {
-    --main-color: #12486B;
-    --main-font-color: #E1F6E6;
-    --emphasis: #F5FCCD;
+    --main-color: #8B9BA8;
+    --main-font-color: #FCFFED;
+    --emphasis: #FFC436;
+    --disabled: #3B4B58;
 }
 
 a {
@@ -22,7 +24,7 @@ a {
     }
 
 .wrapper {
-    width: 100vw;
+    width: 100%;
     margin: 0 auto;
     background-color: var(--main-color);
     color: var(--main-font-color);
@@ -35,8 +37,7 @@ a {
 }
 
 header {
-    padding: 30px;
-
+    padding: 30px 0px;
 }
 
 .container {
@@ -47,21 +48,49 @@ header {
     margin: 0 auto;
     text-align: center;
     font-size: 14px;
-    
+}
+
+.container p {
+    line-height: 36px;
+}
+
+.verticalmargin {
+    margin: 20px 0px;
 }
 
 .button-area {
-    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    height: 45px;
     padding: 5px;
 }
 
 .pulldown-area {
-    height: 50px;
-    padding: 5px;
+    height: 70px;
+    padding-top: 10px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.pulldown {
+    padding: 1px;
+}
+
+.visible {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+@media screen and (max-width:428px) {
+    
 }
 
 .btn {
     display: block;
+    margin: 0 auto;
     padding: 5px 20px;
     border: 1px solid var(--main-font-color);
     background-color: var(--main-color);
@@ -79,22 +108,79 @@ header {
     transition: 0.5s;
 }
 
-.left {
+.btn:disabled {
+    border: 1px solid var(--disabled);
+    color: var(--disabled);
+    cursor: default;
+}
+
+/* .left {
     float: left;
 }
 
 .right {
     float: right;
-}
-
-table th, td {
-    min-width: 100px;
-
-}
-
-/* footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 30px;
 } */
+
+.narrow {
+    width: 40%;
+    max-width: 200px;
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
+}
+
+.list {
+    /* background-color: white;
+    color: var(--main-color); */
+}
+
+.list table {
+    margin: 0 auto;
+}
+
+.list table th, td {
+    display: flexbox;
+    justify-content: space-between;
+    line-height: 36px;
+    min-width: 100px;
+    padding: 0 12px;
+}
+
+.list table td a:hover {
+    color: var(--emphasis);
+    transition: 0.5s;
+}
+
+.article-area {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.article-area table {
+    margin-bottom: 15px;
+}
+
+.article-area table th {
+    width: 100px;
+    text-align: center;
+}
+
+.article-area table td {
+    text-align: left;
+}
+
+.article-area table td input {
+    width: 100%;
+}
+
+.article-area table td textarea {
+    width: 100%;
+    height: 150px;
+    margin: 7px 0px;
+    vertical-align: middle;
+}
+
+.article-area table p {
+    line-height: normal;
+}
+

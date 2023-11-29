@@ -3,7 +3,7 @@
     {% if articles %}
     <div>
         <table>
-            <tr>
+            <tr class="list-heading">
                 <th>投稿者</th>
                 <th>タイトル</th>
                 <th>投稿日時</th>
@@ -12,7 +12,7 @@
                 {% endif %}
             </tr>
             {% for article in articles %}
-            <tr>
+            <tr class="fade-in">
                 <td>
                     {{ article.author }}
                 </td>
@@ -34,7 +34,7 @@
         </table>
     </div>
     {% else %}
-        <p>{{ no_results_message }}</p>
+        <p class="fade-in">{{ no_results_message }}</p>
     {% endif %}
     <p>----------------------------------------</p>
 

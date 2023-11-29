@@ -41,9 +41,8 @@ header {
 }
 
 .container {
-    max-width: 600px;
-    /* height: 600px; */
-    min-height: 700px;
+    max-width: 800px;
+    min-height: 90vh;
     text-decoration: none;
     margin: 0 auto;
     text-align: center;
@@ -54,17 +53,9 @@ header {
     line-height: 36px;
 }
 
-.verticalmargin {
-    margin: 20px 0px;
-}
 
-.button-area {
-    display: flex;
-    justify-content: space-around;
-    height: 45px;
-    padding: 5px;
-}
 
+/* プルダウン関連の設定 */
 .pulldown-area {
     height: 70px;
     padding-top: 10px;
@@ -88,6 +79,28 @@ header {
     
 }
 
+
+/* ボタン関連の設定 */
+.verticalmargin {
+    margin: 20px 0px;
+}
+
+.button-area {
+    display: flex;
+    justify-content: space-around;
+    height: 45px;
+    padding: 5px;
+}
+
+.btn-in-form {
+    background-color: var(--main-color);
+    color: var(--main-font-color);
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 0.5em;
+    text-indent: 0.5em;
+}
+
 .btn {
     display: block;
     margin: 0 auto;
@@ -108,19 +121,16 @@ header {
     transition: 0.5s;
 }
 
+.btn-in-form:hover {
+    color: var(--emphasis);
+    transition: 0.5s;
+}
+
 .btn:disabled {
     border: 1px solid var(--disabled);
     color: var(--disabled);
     cursor: default;
 }
-
-/* .left {
-    float: left;
-}
-
-.right {
-    float: right;
-} */
 
 .narrow {
     width: 40%;
@@ -129,21 +139,57 @@ header {
     text-indent: 0.2em;
 }
 
-.list {
-    /* background-color: white;
-    color: var(--main-color); */
+.narrow3 {
+    width: 30%;
+    max-width: 180px;
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
 }
 
+@media screen and (max-width:778px) {
+    .btn {
+        height: 50px;
+    }
+
+    .narrow3 {
+        width: 25%;
+        padding: 5px 10px;
+        letter-spacing: 0.1em;
+        text-indent: 0.1em;
+    }
+}
+
+
+
+/* 記事一覧リスト関連の設定 */
 .list table {
     margin: 0 auto;
 }
 
 .list table th, td {
-    display: flexbox;
-    justify-content: space-between;
-    line-height: 36px;
-    min-width: 100px;
+    /* display: flexbox;
+    justify-content: space-evenly; */
+    line-height: normal;
+    min-width: 120px;
     padding: 0 12px;
+}
+
+.list table td {
+    padding: 5px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    opacity: 0; 
+    animation: fadeIn 0.1s ease-in-out forwards; 
 }
 
 .list table td a:hover {
@@ -151,6 +197,32 @@ header {
     transition: 0.5s;
 }
 
+
+
+/* 記事詳細関連の設定 */
+.detail {
+    margin-bottom: 15px;
+}
+
+.detail h3 {
+    margin: 7px;
+}
+
+.detail-contents {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    line-height: 30px;
+    text-align: left;
+}
+
+.detail-contents a {
+    padding: 0px 30px;
+    line-height: 65px;
+}
+
+
+/* 記事編集エリア関連の設定 */
 .article-area {
     width: 80%;
     margin: 0 auto;
@@ -158,6 +230,12 @@ header {
 
 .article-area table {
     margin-bottom: 15px;
+}
+
+.article-area table tr {
+    margin: 10px;
+    height: 40px;
+    line-height: 27px;
 }
 
 .article-area table th {
@@ -171,6 +249,7 @@ header {
 
 .article-area table td input {
     width: 100%;
+    line-height: 30px;
 }
 
 .article-area table td textarea {

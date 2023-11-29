@@ -2,15 +2,11 @@
 
 {% block content %}
 
-<div>
-    <a href="{% url 'main:index' %}">ホームに戻る</a>
+<div class="detail">
+    <h3 class="left">タイトル　：　{{ article.title }}</h3>
+    <h3 class="right">投稿者　：　{{ article.author }}</h3>
 </div>
-
-<div>
-    <h3 class="left">{{ article.title }}</h3>
-    <h3 class="right">{{ article.author }}</h3>
-</div>
-<div>
+<div class="detail-contents">
     {{ article.text | linebreaks | urlize }}
 
     {% if article.attached_file %}
@@ -19,20 +15,20 @@
     </div>
     {% endif %}
 
-</div>
-<div>
     <p>投稿日時：{{ article.created_datetime }}<p>
     <p>最終更新／承認日時：{{ article.edited_datetime }}</p>
 </div>
 
-<div class="article-button-area">
-    <button class="btn">
-        <a href="{% url 'main:edit_article' article.pk %}">編集</a>
-    </button>
+<div class="button-area">
 
-    <form method="post" action="{% url 'main:delete_article' article.pk %}">{% csrf_token %}
-        <button class="btn" type="submit" onclick='return confirm("本当に削除しますか？");'>削除</button>
+    <a class="btn narrow3" href="{% url 'main:index' %}">ホームに戻る</a>
+    
+    <a class="btn narrow3" href="{% url 'main:edit_article' article.pk %}">編集</a>
+
+    <form class="btn narrow3" method="post" action="{% url 'main:delete_article' article.pk %}">{% csrf_token %}
+        <button class="btn-in-form" type="submit" onclick='return confirm("本当に削除しますか？");'>削除</button>
     </form>
+
 </div>
 
 {% endblock %}

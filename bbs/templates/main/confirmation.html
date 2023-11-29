@@ -1,22 +1,18 @@
-<!DOCTYPE html>
-<html lang="ja">
+{% extends 'main/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>メッセージ</title>
-</head>
+{% block content %}
 
-<body>
-    <div class="message">
-        <p>{{ message }}</p>
-        <p>３秒後にトップページ（記事一覧）へ戻ります。</p>
-    </div>
+<div class="message">
+    <p>{{ message }}</p>
+    <p>３秒後にトップページ（記事一覧）へ戻ります。</p>
+</div>
 
-    <!-- 5秒後にリダイレクト -->
-    <script>
-        setTimeout(function() {
-            window.location.href = '/';  // トップページへリダイレクト
-        }, 3000);  // ３秒後
-    </script>
-</body>
-</html>
+<!-- 指定秒後にリダイレクト -->
+<script>
+    setTimeout(function() {
+        window.location.href = '/'; 
+    }, 3000);  // 時間指定
+</script>
+
+{% endblock %}
+

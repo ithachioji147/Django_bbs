@@ -25,19 +25,17 @@
         <th>添付ファイル</th>
         <td>{{ form.attached_file }}</td>
       </tr>
-      <!-- {% if user.is_staff %} -->
       <tr>
         <th>ステータス</th>
         <td>{{ form.status }}</td>
       </tr>
-      <!-- {% endif %} -->
       <!-- <tr>
         <th>パスコード</th>
         <td>{{ form.passcode }}</td>
       </tr> -->
     </table>
   
-    <div class="button-area">
+    <div class="buttons-area">
       <a class="btn narrow" href="{% url 'main:index' %}">キャンセル</a>
       <button type="submit" class="btn narrow">投稿</button>
     </div>

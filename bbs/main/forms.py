@@ -16,10 +16,6 @@ class ArticleForm(ModelForm):
             self.fields['status'].disabled = True
 
 
-        # if 'user' in kwargs and kwargs['user'].is_staff:  # models側で指定しているので不要では？
-        #     self.fields['status'].widget = forms.Select()
-        #     self.fields['status'].queryset = Article.STATUS_CHOICES
-
     # def cleand_data(self):  #  バリデーションチェック（調べ中）
     #     passcode = self.cleand_data['passcode']
     #     if not passcode:

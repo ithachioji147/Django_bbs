@@ -134,3 +134,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
+
+# SLACK_WEBHOOK_URL = config.get('Webhook', 'URL') #対応中
+SLACK_WEBHOOK_URL = 'https://example.com'

@@ -1,8 +1,8 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
-from django.utils import timezone
+# from django.db.models.signals import pre_save
+# from django.dispatch import receiver
+# from django.utils import timezone
 
 
 def validate_file_size(value):
@@ -52,7 +52,7 @@ class Article(models.Model):
     class Meta:
         app_label = 'main'
 
-    
+
 # @receiver(pre_save, sender=Article)
 # def update_edited_datetime(sender, instance, **kwargs):
 #     if instance.pk is not None:

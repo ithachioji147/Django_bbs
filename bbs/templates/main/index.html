@@ -23,7 +23,7 @@
                 </select>
             </div>
 
-            <!-- スタッフがログインした場合のみ、ステータス絞込みプルダウンを表示 -->
+            <!-- スタッフ権限でログインした場合のみ、ステータス絞込みプルダウンを表示 -->
             <div class="pulldown {% if user.is_staff %}visible{% else %}hidden{% endif %}">
                 <label for="statusFilter">ステータスで絞り込み：</label>
                 <select id="statusFilter" name="status">
@@ -37,20 +37,11 @@
 
         <script type="text/javascript">
             function updateFilters() {
-                console.log('pulldown changed!')
 
                 const theme = document.getElementById('themeFilter').value;
                 const status = document.getElementById('statusFilter').value;
-                
-                // document.addEventListener('DOMContentLoaded', function(){
-                // const statusFilterIsValid = document.getElementById('statusFilter');
-                // if (statusFilterIsValid){
-                //     status = document.getElementById('statusFilter').value;
-                // } else {
-                //     status = 'APPROVED';
-                // }})
 
-                // テンプレートファイルからリスト部分を読み込んで置き換える
+                // テンプレートファイルからリスト部分を読み込んで再表示する
                 fetch(`/list/?status=${status}&theme=${theme}`)
                     .then(response => response.text())
                     .then(data => {
@@ -59,18 +50,17 @@
                     });
             }
             
-            // イベントリスナーの設置（テーマ絞込みドロップダウン）
+            // イベントリスナ（絞込みドロップダウンの変更監視）
             document.getElementById('themeFilter').addEventListener('change', updateFilters);
+            document.getElementById('statusFilter').addEventListener('change', updateFilters);
             
             // イベントリスナーの設置（ステータス絞込みドロップダウン、表示時のみ）
-            document.addEventListener('DOMContentLoaded', function(){
-                const statusFilterIsValid = document.getElementById('statusFilter');
-                if (statusFilterIsValid){
-                    statusFilterIsValid.addEventListener('change', updateFilters);
-                }
-            })
-
-            // document.getElementById('statusFilter').addEventListener('change', updateFilters);
+            // document.addEventListener('DOMContentLoaded', function(){
+            //     const statusFilterIsValid = document.getElementById('statusFilter');
+            //     if (statusFilterIsValid){
+            //         statusFilterIsValid.addEventListener('change', updateFilters);
+            //     }
+            // })
 
         </script>
 
@@ -78,14 +68,13 @@
         {% include 'main/list.html' %}
 
         <!-- ログアウト -->
-        <!-- <div class="button-area"> -->
-        <div class="verticalmargin">
+        <div class="button-area">
             <form action="{% url 'main:logout' %}" method="post">{% csrf_token %}
                 <button type="submit" class="btn narrow">ログアウト</button>
             </form>
         </div>
 
-
+    <!-- ここは使うことはないかも？ -->
     {% else %}
     <p>このページは表示できません。ログインページよりログインしてください。</p>
 

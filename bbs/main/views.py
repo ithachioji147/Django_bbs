@@ -1,28 +1,24 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
-from django.urls import reverse
-# from django.contrib import messages
 from .models import Article
 from .forms import ArticleForm
+import requests
+from django.conf import settings
 
 
+# トップページ
 def index(request):
     if request.user.is_authenticated:
-    #     if request.user.is_staff:
-    #         articles = Article.objects.all().order_by('-edited_datetime')
-    #     else:
         articles = Article.objects.filter(status='APPROVED').order_by('-edited_datetime')
-        return render(request, 'main/index.html', {'articles': articles})
-    
+        return render(request, 'main/index.html', {'articles': articles})    
     else:
         return redirect('main:login')    
 
 
-def get_filtered_articles(request):  # 記事一覧をプルダウンで絞り込む
+# 記事リストの絞込み表示
+def get_filtered_articles(request):
     status = request.GET.get('status', None)
-    print(f'status={status}')  # デバッグ用
     theme = request.GET.get('theme', None)
-    print(f'theme={theme}')  # デバッグ用
 
     if status != 'all' and theme != 'all':
         filtered_articles = Article.objects.filter(status=status, theme=theme).order_by('-edited_datetime')
@@ -38,16 +34,18 @@ def get_filtered_articles(request):  # 記事一覧をプルダウンで絞り�
     if not filtered_articles.exists():
         context['no_results_message'] = '条件に合致する記事は見つかりませんでした。'
 
-    print(context)  # デバッグ用
-
     return render(request, 'main/list.html', context)
 
 
+# 新規記事作成画面
 def new_article(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES, initial={'status': 'DRAFT'})
-        if form.is_valid():            
-            form.save()
+        if form.is_valid():
+            posted_article = form.save()
+            notify_title = posted_article.title
+            notification = f'記事が投稿されました！確認をお願いします。記事タイトル：{notify_title}'
+            send_slack_notification(notification)
             message = '投稿が完了しました。スタッフの承認後、投稿した記事が公開となります。'
             return render(request, 'main/confirmation.html', {'message': message})
     else:
@@ -69,6 +67,7 @@ def delete_article(request, article_id):
     return render(request, 'main/confirmation.html', {'message': message})
 
 
+# 記事編集画面
 def edit_article(request, article_id):
     article = get_object_or_404(Article, id=article_id)
 
@@ -86,16 +85,26 @@ def edit_article(request, article_id):
                     message = '編集を保存しました。'
             form.save()
             return render(request, 'main/confirmation.html', {'message': message})
-            
-        # return redirect('main:index')
+
     else:
         form = ArticleForm(instance=article)
-
 
     return render(request, 'main/edit_article.html', {'form': form, 'article': article})
 
 
+# 投稿・編集後の確認メッセージ
 def confirmation(request):
     message = request.GET.get('message', '')
     context = {'message': message}
     return render(request, 'main:confirmation', context)
+
+
+# slackへの通知
+def send_slack_notification(message):
+    webhook_url = settings.SLACK_WEBHOOK_URL  # SLACK_WEBHOOK_URLはあなたのWebhook URLに置き換えてください
+    
+    payload = {
+        'text': message,
+    }
+
+    requests.post(webhook_url, json=payload)

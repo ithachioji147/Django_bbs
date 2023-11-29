@@ -1,14 +1,14 @@
 <div class="list" id="articleList">
-    <p>----------------------------------------</p>
+    <p>---------------------------------------------</p>
     {% if articles %}
     <div>
         <table>
-            <tr class="list-heading">
+            <tr>
                 <th>投稿者</th>
                 <th>タイトル</th>
                 <th>投稿日時</th>
                 {% if user.is_staff %}
-                <th>ステータス</th>
+                <th class="hide-when-small">ステータス</th>
                 {% endif %}
             </tr>
             {% for article in articles %}
@@ -17,16 +17,14 @@
                     {{ article.author }}
                 </td>
                 <td>
-                    <a href="{% url 'main:detail' article.id %}">
-                        {{ article.title }}
-                    </a>
+                    <a href="{% url 'main:detail' article.id %}">{{ article.title }}</a>
                 </td>
                 <td>
-                    {{ article.created_datetime | date:"Y-m-j"}}
+                    {{ article.created_datetime | date:"Y-m-j" }}
                 </td>
                 {% if user.is_staff %}
-                <td>
-                    {{ article.status}}
+                <td class="hide-when-small">
+                    {{ article.get_status_display }}
                 </td>
                 {% endif %}
             </tr>
@@ -36,6 +34,6 @@
     {% else %}
         <p class="fade-in">{{ no_results_message }}</p>
     {% endif %}
-    <p>----------------------------------------</p>
+    <p>---------------------------------------------</p>
 
 </div>

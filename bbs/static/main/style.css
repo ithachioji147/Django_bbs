@@ -1,4 +1,4 @@
-/* リセット */
+/* ------- リセット ------- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -11,22 +11,30 @@
     text-indent: 0.05em;
 }
 
+
+/* ------- 共通の色の設定 ------- */
 :root {
     --main-color: #8B9BA8;
     --main-font-color: #FCFFED;
+    --transparent: rgba(255,255,255,0);
     --emphasis: #FFC436;
     --disabled: #3B4B58;
 }
 
+
+/* ------- 共通部分 ------- */
 a {
     color: var(--main-font-color);
     text-decoration: none;
     }
 
+
+/* ------- 全体 ------- */
 .wrapper {
     width: 100%;
     margin: 0 auto;
-    background-color: var(--main-color);
+    /* ------- background-color: var(--main-color); ------- */
+    background: linear-gradient(180deg,#205375,#22577E,#F66B0E);
     color: var(--main-font-color);
     text-align: center;
 }
@@ -54,8 +62,7 @@ header {
 }
 
 
-
-/* プルダウン関連の設定 */
+/* ------- プルダウン関連の設定 ------- */
 .pulldown-area {
     height: 70px;
     padding-top: 10px;
@@ -75,30 +82,35 @@ header {
     display: none;
 }
 
-@media screen and (max-width:428px) {
-    
-}
 
-
-/* ボタン関連の設定 */
-.verticalmargin {
+/* ------- ボタン関連の設定 ------- */
+.button-area {
     margin: 20px 0px;
 }
 
-.button-area {
+.buttons-area {
     display: flex;
     justify-content: space-around;
-    height: 45px;
-    padding: 5px;
+    margin: 10px 0px;
 }
 
 .btn-in-form {
-    background-color: var(--main-color);
+    display: inline;
+    width: 100%;
+    height: 100%;
+    /* background-color: var(--main-color); */
+    background-color: var(--transparent);
     color: var(--main-font-color);
     font-size: 14px;
     text-align: center;
-    letter-spacing: 0.5em;
-    text-indent: 0.5em;
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
+    cursor: pointer;
+}
+
+.btn-in-form:hover {
+    color: var(--emphasis);
+    transition: 0.5s;
 }
 
 .btn {
@@ -106,7 +118,8 @@ header {
     margin: 0 auto;
     padding: 5px 20px;
     border: 1px solid var(--main-font-color);
-    background-color: var(--main-color);
+    /* background-color: var(--main-color); */
+    background-color: var(--transparent);
     color: var(--main-font-color);
     font-size: 14px;
     text-align: center;
@@ -117,11 +130,6 @@ header {
 
 .btn:hover {
     border: 1px solid var(--emphasis);
-    color: var(--emphasis);
-    transition: 0.5s;
-}
-
-.btn-in-form:hover {
     color: var(--emphasis);
     transition: 0.5s;
 }
@@ -147,28 +155,25 @@ header {
 }
 
 @media screen and (max-width:778px) {
-    .btn {
-        height: 50px;
+    .btn-in-form {
+        letter-spacing: 0.1em;
+        text-indent: 0.1em;
     }
 
     .narrow3 {
         width: 25%;
-        padding: 5px 10px;
         letter-spacing: 0.1em;
         text-indent: 0.1em;
     }
 }
 
 
-
-/* 記事一覧リスト関連の設定 */
+/* ------- 記事リスト関連の設定 ------- */
 .list table {
     margin: 0 auto;
 }
 
 .list table th, td {
-    /* display: flexbox;
-    justify-content: space-evenly; */
     line-height: normal;
     min-width: 120px;
     padding: 0 12px;
@@ -197,11 +202,21 @@ header {
     transition: 0.5s;
 }
 
+.hide-when-small {
+    display: table-cell;
+}
 
+@media screen and (max-width:560px) {
+    .hide-when-small {
+        display: none;
+    }
+}
 
-/* 記事詳細関連の設定 */
+/* ------- 記事詳細エリア関連の設定 ------- */
 .detail {
-    margin-bottom: 15px;
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
 }
 
 .detail h3 {
@@ -211,25 +226,46 @@ header {
 .detail-contents {
     width: 80%;
     margin: 0 auto;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     line-height: 30px;
     text-align: left;
+    overflow-wrap: break-word;
 }
 
-.detail-contents a {
-    padding: 0px 30px;
-    line-height: 65px;
+.detail-attachment {
+    width: 80%;
+    line-height: 60px;
+}
+
+.detail-contents a:hover {
+    color: var(--emphasis);
+    transition: 0.5s;
+}
+
+.detail-contents p {
+    line-height: 24px;
+}
+
+@media screen and (max-width:778px) {
+    .detail-contents {
+        width: 90%;
+    }
+
+    .detail-contents a {
+        width: 90%;
+    }
 }
 
 
-/* 記事編集エリア関連の設定 */
+/* ------- 記事編集エリア関連の設定 ------- */
 .article-area {
     width: 80%;
     margin: 0 auto;
 }
 
 .article-area table {
-    margin-bottom: 15px;
+    margin: 0 auto;
+    margin-bottom: 20px;
 }
 
 .article-area table tr {
@@ -249,17 +285,24 @@ header {
 
 .article-area table td input {
     width: 100%;
-    line-height: 30px;
+    padding: 3px;
+    line-height: 24px;
 }
 
 .article-area table td textarea {
     width: 100%;
     height: 150px;
     margin: 7px 0px;
+    padding: 3px;
     vertical-align: middle;
 }
 
 .article-area table p {
     line-height: normal;
+}
+
+.article-area a:hover {
+    color: var(--emphasis);
+    transition: 0.5s;
 }
 

@@ -1,18 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
+from django.conf import settings
 from .models import Article
 from .forms import ArticleForm
 import requests
-from django.conf import settings
 
 
 # トップページ
 def index(request):
-    if request.user.is_authenticated:
+    # if request.user.is_authenticated:
         articles = Article.objects.filter(status='APPROVED').order_by('-edited_datetime')
         return render(request, 'main/index.html', {'articles': articles})    
-    else:
-        return redirect('main:login')    
+    # else:
+    #     return redirect('main:login')    
 
 
 # 記事リストの絞込み表示
@@ -44,8 +44,8 @@ def new_article(request):
         if form.is_valid():
             posted_article = form.save()
             notify_title = posted_article.title
-            notification = f'記事が投稿されました！確認をお願いします。記事タイトル：{notify_title}'
-            send_slack_notification(notification)
+            notification = f'<http://localhost:8000|BBS>に記事が投稿されました！承認をお願いします。記事タイトル：{notify_title}'
+            send_slack_notification(notification,'staff')
             message = '投稿が完了しました。スタッフの承認後、投稿した記事が公開となります。'
             return render(request, 'main/confirmation.html', {'message': message})
     else:
@@ -80,6 +80,9 @@ def edit_article(request, article_id):
                 message = '編集を保存しました。スタッフの承認後、編集後の記事が公開となります。'
             else:
                 if article.status == 'APPROVED':
+                    notify_title = article.title
+                    notification = f'掲示板に記事が公開されました！記事タイトル：{notify_title}'
+                    send_slack_notification(notification, 'general')
                     message = '編集を保存しました。該当の記事が公開となります。'
                 else:
                     message = '編集を保存しました。'
@@ -99,12 +102,15 @@ def confirmation(request):
     return render(request, 'main:confirmation', context)
 
 
-# slackへの通知
-def send_slack_notification(message):
-    webhook_url = settings.SLACK_WEBHOOK_URL  # SLACK_WEBHOOK_URLはあなたのWebhook URLに置き換えてください
-    
+# slack連携
+def send_slack_notification(message, send_to):
+    address = {
+        'staff': settings.SLACK_WEBHOOK_URL_STAFF, 
+        'general': settings.SLACK_WEBHOOK_URL_GENERAL,
+    }
+
+    webhook_url = address[send_to]
     payload = {
         'text': message,
     }
-
     requests.post(webhook_url, json=payload)

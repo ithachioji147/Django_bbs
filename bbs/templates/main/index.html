@@ -2,82 +2,66 @@
 
 {% block content %}
 
-    <!-- ユーザー認証できていたらページを表示する -->
-    {% if request.user.is_authenticated %}
+<div class="button-area">  
+    <!-- 新規投稿ボタン -->
+    <a class="btn narrow" href="{% url 'main:new_article' %}">新規投稿</a>
+</div>
 
-        <div class="button-area">  
-            <!-- 新規投稿 -->
-            <a class="btn narrow" href="{% url 'main:new_article' %}">新規投稿</a>
-        </div>
+<div class="pulldown-area">
+    <!-- テーマ絞込みプルダウン -->
+    <div class="pulldown">
+        <label for="themeFilter">テーマで絞り込み：</label>
+        <select id="themeFilter" name="theme">
+            <option value="all" selected>全て</option>
+            <option value="useful">お役立ち情報</option>
+            <option value="diseases">病気・障害について</option>
+            <option value="learning">学習情報</option>
+            <option value="others">その他</option>
+        </select>
+    </div>
 
-        <div class="pulldown-area">
-            <!-- テーマ絞込みプルダウン -->
-            <div class="pulldown">
-                <label for="themeFilter">テーマで絞り込み：</label>
-                <select id="themeFilter" name="theme">
-                    <option value="all" selected>全て</option>
-                    <option value="useful">お役立ち情報</option>
-                    <option value="diseases">病気・障害について</option>
-                    <option value="learning">学習情報</option>
-                    <option value="others">その他</option>
-                </select>
-            </div>
+    <!-- スタッフ権限でログインした場合のみ、ステータス絞込みプルダウンを表示 -->
+    <div class="pulldown {% if user.is_staff %}visible{% else %}hidden{% endif %}">
+        <label for="statusFilter">ステータスで絞り込み：</label>
+        <select id="statusFilter" name="status">
+            <option value="all">全て</option>
+            <option value="DRAFT">未承認</option>
+            <option value="APPROVED" selected>承認済</option>
+            <option value="DELETED">削除済</option>
+        </select>
+    </div>
+</div>
 
-            <!-- スタッフ権限でログインした場合のみ、ステータス絞込みプルダウンを表示 -->
-            <div class="pulldown {% if user.is_staff %}visible{% else %}hidden{% endif %}">
-                <label for="statusFilter">ステータスで絞り込み：</label>
-                <select id="statusFilter" name="status">
-                    <option value="all">全て</option>
-                    <option value="DRAFT">未承認</option>
-                    <option value="APPROVED" selected>承認済</option>
-                    <option value="DELETED">削除済</option>
-                </select>
-            </div>
-        </div>
+<!-- 記事リスト表示部分 -->
+{% include 'main/list.html' %}
 
-        <script type="text/javascript">
-            function updateFilters() {
+<!-- ログアウトボタン -->
+<div class="button-area">
+    <form action="{% url 'main:logout' %}" method="post">{% csrf_token %}
+        <button type="submit" class="btn narrow">ログアウト</button>
+    </form>
+</div>
 
-                const theme = document.getElementById('themeFilter').value;
-                const status = document.getElementById('statusFilter').value;
+<!-- javascript -->
+<script type="text/javascript">
+    function updateFilters() {
 
-                // テンプレートファイルからリスト部分を読み込んで再表示する
-                fetch(`/list/?status=${status}&theme=${theme}`)
-                    .then(response => response.text())
-                    .then(data => {
-                        const listContainer = document.getElementById('articleList');
-                        listContainer.innerHTML = data;
-                    });
-            }
-            
-            // イベントリスナ（絞込みドロップダウンの変更監視）
-            document.getElementById('themeFilter').addEventListener('change', updateFilters);
-            document.getElementById('statusFilter').addEventListener('change', updateFilters);
-            
-            // イベントリスナーの設置（ステータス絞込みドロップダウン、表示時のみ）
-            // document.addEventListener('DOMContentLoaded', function(){
-            //     const statusFilterIsValid = document.getElementById('statusFilter');
-            //     if (statusFilterIsValid){
-            //         statusFilterIsValid.addEventListener('change', updateFilters);
-            //     }
-            // })
+        const theme = document.getElementById('themeFilter').value;
+        const status = document.getElementById('statusFilter').value;
 
-        </script>
+        // テンプレートファイルからリスト部分を読み込んで再表示する
+        fetch(`/list/?status=${status}&theme=${theme}`)
+            .then(response => response.text())
+            .then(data => {
+                const listContainer = document.getElementById('articleList');
+                listContainer.innerHTML = data;
+            });
+    }
+    
+    // イベントリスナ（絞込みドロップダウンの変更監視）
+    document.getElementById('themeFilter').addEventListener('change', updateFilters);
+    document.getElementById('statusFilter').addEventListener('change', updateFilters);
 
-        <!-- 記事リスト表示部分 -->
-        {% include 'main/list.html' %}
-
-        <!-- ログアウト -->
-        <div class="button-area">
-            <form action="{% url 'main:logout' %}" method="post">{% csrf_token %}
-                <button type="submit" class="btn narrow">ログアウト</button>
-            </form>
-        </div>
-
-    <!-- ここは使うことはないかも？ -->
-    {% else %}
-    <p>このページは表示できません。ログインページよりログインしてください。</p>
-
-    {% endif %}
+</script>
 
 {% endblock %}

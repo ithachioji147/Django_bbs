@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import re
+from configparser import ConfigParser
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'main.middleware.restrict_access.RestrictAccessMiddleware',
 ]
 
 ROOT_URLCONF = 'bbs.urls'
@@ -127,6 +130,7 @@ STATICFILES_DIRS = [BASE_DIR, 'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 # 以下自分で追加した部分
 LOGIN_REDIRECT_URL = '/'
 
@@ -135,5 +139,13 @@ MEDIA_URL = '/media/'
 
 SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
 
-# SLACK_WEBHOOK_URL = config.get('Webhook', 'URL') #対応中
-SLACK_WEBHOOK_URL = 'https://example.com'
+# SLACK_WEBHOOK_URL = 'https://example.com'
+config = ConfigParser()
+config.read('../config.ini')
+
+SLACK_WEBHOOK_URL_STAFF = config.get('WEBHOOK_STAFF', 'URL')
+SLACK_WEBHOOK_URL_GENERAL = config.get('WEBHOOK_GENERAL', 'URL')
+
+ALLOWED_PATHS = [
+    '/login/',
+]

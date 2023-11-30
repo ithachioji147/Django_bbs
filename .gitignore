@@ -21,3 +21,6 @@ myproject/settings_local.py
 
 # attached files
 bbs/media/attached/
+
+# config
+config.ini

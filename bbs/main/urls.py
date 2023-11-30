@@ -11,11 +11,10 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('list/', views.get_filtered_articles, name='get_filtered_articles'),
     path('new_article', views.new_article, name='new_article'),
-    path('<int:article_id>', views.detail, name='detail'),
+    path('article/<int:article_id>', views.detail, name='detail'),
     path('delete_article/<int:article_id>', views.delete_article, name='delete_article'),
     path('edit_article/<int:article_id>', views.edit_article, name='edit_article'),
-    path('confirmation/', views.confirmation, name='confirmation'),
-
+    path('confirmation', views.confirmation, name='confirmation'),
 ]
 
 # デバッグモード

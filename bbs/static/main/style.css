@@ -15,7 +15,7 @@
 /* ------- 共通の色の設定 ------- */
 :root {
     --main-color: #8B9BA8;
-    --main-font-color: #FCFFED;
+    --main-font-color: #FCFFFA;
     --transparent: rgba(255,255,255,0);
     --emphasis: #FFC436;
     --disabled: #3B4B58;
@@ -33,13 +33,24 @@ a {
 .wrapper {
     width: 100%;
     margin: 0 auto;
+    padding-bottom: 80px;
     /* ------- background-color: var(--main-color); ------- */
     background: linear-gradient(180deg,#205375,#22577E,#F66B0E);
     color: var(--main-font-color);
     text-align: center;
 }
 
+.wrapper h2 {
+    font-size: 24px;
+    font-weight: normal;
+}
+
 .wrapper h3 {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.wrapper h4 {
     font-size: 18px;
     font-weight: normal;
 }

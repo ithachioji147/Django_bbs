@@ -28,9 +28,6 @@ SECRET_KEY = 'django-insecure-sh@r--i56you_+%c_4thskfp3!1hmblzwpkl9-&q97!y)xvm%#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -131,21 +128,33 @@ STATICFILES_DIRS = [BASE_DIR, 'static']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# 以下自分で追加した部分
+
+####################################
+# 以下、追加部分
+####################################
+
 LOGIN_REDIRECT_URL = '/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
+SESSION_COOKIE_AGE = 14 * 24 * 60 * 60
 
-# SLACK_WEBHOOK_URL = 'https://example.com'
-config = ConfigParser()
-config.read('../config.ini')
 
-SLACK_WEBHOOK_URL_STAFF = config.get('WEBHOOK_STAFF', 'URL')
-SLACK_WEBHOOK_URL_GENERAL = config.get('WEBHOOK_GENERAL', 'URL')
-
+# ログインしていない状態でアクセスできるパス
 ALLOWED_PATHS = [
     '/login/',
 ]
+
+
+# 以下は設定ファイル（config.ini）から読み込む
+config = ConfigParser()
+config.read('../config.ini')
+
+# SlackのWebhook
+SLACK_WEBHOOK_URL_STAFF = config.get('WEBHOOK_STAFF', 'URL')
+SLACK_WEBHOOK_URL_GENERAL = config.get('WEBHOOK_GENERAL', 'URL')
+
+# NGROKで発行する一時的なアドレス
+ALLOWED_HOSTS = ['localhost', config.get('NGROK', 'HOST')]
+CSRF_TRUSTED_ORIGINS = [config.get('NGROK', 'FULL_URL')]

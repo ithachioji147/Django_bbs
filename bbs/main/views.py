@@ -44,7 +44,7 @@ def new_article(request):
         if form.is_valid():
             posted_article = form.save()
             notify_title = posted_article.title
-            notification = f'<http://localhost:8000|BBS>に記事が投稿されました！承認をお願いします。記事タイトル：{notify_title}'
+            notification = f'掲示板に記事が投稿されました！承認をお願いします。記事タイトル：{notify_title}'
             send_slack_notification(notification,'staff')
             message = '投稿が完了しました。スタッフの承認後、投稿した記事が公開となります。'
             return render(request, 'main/confirmation.html', {'message': message})

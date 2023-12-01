@@ -6,7 +6,6 @@ from .models import Article
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
-        # fields = ['title', 'author', 'theme', 'text', 'attached_file','status', 'passcode']  # パスワード機能作成後こちら
         fields = ['title', 'author', 'theme', 'text', 'attached_file','status']
 
     def __init__(self, *args, **kwargs):

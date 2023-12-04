@@ -20,7 +20,7 @@ myproject/settings_local.py
 .env
 
 # attached files
-bbs/media/attached/
+bbs/media/attachment/
 
 # config
 config.ini

@@ -19,8 +19,5 @@ myproject/settings_local.py
 # Ignore environment-specific settings
 .env
 
-# attached files
-bbs/media/attachment/
-
 # config
 config.ini

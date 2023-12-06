@@ -148,16 +148,20 @@ ALLOWED_PATHS = [
 ]
 
 
-# 以下は設定ファイル（config.ini）から読み込む
-config = ConfigParser()
-config.read('config.ini')
+# 以下は設定ファイル（config.ini）から読み込む --- localのみ
+# config = ConfigParser()
+# config.read('config.ini')
 
-# SlackのWebhook
-SLACK_WEBHOOK_URL_STAFF = config.get('WEBHOOK_STAFF', 'URL')
-SLACK_WEBHOOK_URL_GENERAL = config.get('WEBHOOK_GENERAL', 'URL')
+# SlackのWebhook --- local時の設定
+# SLACK_WEBHOOK_URL_STAFF = config.get('WEBHOOK_STAFF', 'URL')
+# SLACK_WEBHOOK_URL_GENERAL = config.get('WEBHOOK_GENERAL', 'URL')
+
+# SlackのWebhook --- 本番環境は環境変数を使用
+SLACK_WEBHOOK_URL_STAFF = os.environ.get('WEBHOOK_STAFF_URL')
+SLACK_WEBHOOK_URL_GENERAL = os.environ.get('WEBHOOK_GENERAL_URL')
 
 # NGROKで発行する一時的なアドレス
-ALLOWED_HOSTS = ['localhost', config.get('NGROK', 'HOST')]
-CSRF_TRUSTED_ORIGINS = [config.get('NGROK', 'FULL_URL')]
+# ALLOWED_HOSTS = ['localhost', config.get('NGROK', 'HOST')]
+# CSRF_TRUSTED_ORIGINS = [config.get('NGROK', 'FULL_URL')]
 
 django_heroku.settings(locals())

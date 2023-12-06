@@ -145,6 +145,7 @@ SESSION_COOKIE_AGE = 14 * 24 * 60 * 60
 # ログインしていない状態でアクセスできるパス
 ALLOWED_PATHS = [
     '/login/',
+    '/admin/'
 ]
 
 

@@ -14,7 +14,7 @@ db.sqlite3
 *.log
 
 # Ignore the local settings file
-myproject/settings_local.py
+bbs/settings_local.py
 
 # Ignore environment-specific settings
 .env

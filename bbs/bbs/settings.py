@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import re
 from configparser import ConfigParser
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -158,3 +159,5 @@ SLACK_WEBHOOK_URL_GENERAL = config.get('WEBHOOK_GENERAL', 'URL')
 # NGROKで発行する一時的なアドレス
 ALLOWED_HOSTS = ['localhost', config.get('NGROK', 'HOST')]
 CSRF_TRUSTED_ORIGINS = [config.get('NGROK', 'FULL_URL')]
+
+django_heroku.settings(locals())

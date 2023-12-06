@@ -150,7 +150,7 @@ ALLOWED_PATHS = [
 
 # 以下は設定ファイル（config.ini）から読み込む
 config = ConfigParser()
-config.read('../config.ini')
+config.read('config.ini')
 
 # SlackのWebhook
 SLACK_WEBHOOK_URL_STAFF = config.get('WEBHOOK_STAFF', 'URL')

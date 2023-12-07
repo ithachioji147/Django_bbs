@@ -144,17 +144,18 @@ SESSION_COOKIE_AGE = 14 * 24 * 60 * 60
 # ログインしていない状態でアクセスできるパス
 ALLOWED_PATHS = [
     '/login/',
+    '/admin/',
 ]
 
 
 # 以下は設定ファイル（config.ini）から読み込む
 config = ConfigParser()
-config.read('../config.ini')
+config.read('config.ini')
 
 # SlackのWebhook
 SLACK_WEBHOOK_URL_STAFF = config.get('WEBHOOK_STAFF', 'URL')
 SLACK_WEBHOOK_URL_GENERAL = config.get('WEBHOOK_GENERAL', 'URL')
 
 # NGROKで発行する一時的なアドレス
-ALLOWED_HOSTS = ['localhost', config.get('NGROK', 'HOST')]
-CSRF_TRUSTED_ORIGINS = [config.get('NGROK', 'FULL_URL')]
+# ALLOWED_HOSTS = ['localhost', config.get('NGROK', 'HOST')]
+# CSRF_TRUSTED_ORIGINS = [config.get('NGROK', 'FULL_URL')]

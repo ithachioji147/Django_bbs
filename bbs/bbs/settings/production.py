@@ -7,7 +7,7 @@ from configparser import ConfigParser
 import django_heroku
 
 
-DEBUG = True
+DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -19,7 +19,7 @@ ALLOWED_HOSTS = ['127.0.0.1','.herokuapp.com']
 # 静的ファイルはWhitenoiseを使用
 
 STATIC_URL = '/static/'
-STATICFILESS_STORAGE = 'whitenoise.storage.CompressedManifestStaticFileStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFileStorage'
 
 # STATIC_URL = 'static/'
 # STATICFILES_DIRS = [BASE_DIR, 'static']

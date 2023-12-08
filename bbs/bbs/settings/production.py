@@ -1,30 +1,31 @@
-from pathlib import Path
 import os
-import re
-from configparser import ConfigParser
-import django_heroku
 from .base import *
 import dj_database_url
+# from pathlib import Path
+# import re
+# from configparser import ConfigParser
+# import django_heroku
+
+
+DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-sh@r--i56you_+%c_4thskfp3!1hmblzwpkl9-&q97!y)xvm%#'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR, 'static']
 
 
 ALLOWED_HOSTS = ['127.0.0.1','.herokuapp.com']
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# 静的ファイルはWhitenoiseを使用
+
+STATIC_URL = '/static/'
+STATICFILESS_STORAGE = 'whitenoise.storage.CompressedManifestStaticFileStorage'
+
+# STATIC_URL = 'static/'
+# STATICFILES_DIRS = [BASE_DIR, 'static']
+
+
+# データベースはHerokuのPostogresを使用
 
 DATABASES = {
     'default': dj_database_url.config(
@@ -33,7 +34,16 @@ DATABASES = {
 }
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# メディアファイルはAWS S3を使用
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_REGION_NAME = 'ap-northeast-1'
+AWS_STORAGE_BUCKET_NAME = 'hachioji147-bbs-storage'
 
+# アクセスキー
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
+MEDIA_URL = 'https://hachioji147-bbs-storage.s3.amazonaws.com/'
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'

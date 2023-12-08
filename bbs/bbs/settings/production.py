@@ -1,10 +1,10 @@
 import os
 from .base import *
 import dj_database_url
-from pathlib import Path
-import re
+# from pathlib import Path
+# import re
 from configparser import ConfigParser
-import django_heroku
+# import django_heroku
 
 
 DEBUG = False
@@ -13,14 +13,14 @@ DEBUG = False
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
-ALLOWED_HOSTS = ['127.0.0.1','.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # 静的ファイルはWhitenoiseを使用
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # STATIC_URL = 'static/'
 # STATICFILES_DIRS = [BASE_DIR, 'static']

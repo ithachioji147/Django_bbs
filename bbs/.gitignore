@@ -15,7 +15,7 @@ db.sqlite3
 
 # Ignore the local settings file
 bbs/settings/local.py
-bbs/settings/setting_old.py
+bbs/settings/settings_old.py
 
 # Ignore environment-specific settings
 .env

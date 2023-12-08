@@ -18,8 +18,9 @@ ALLOWED_HOSTS = ['127.0.0.1','.herokuapp.com']
 
 # 静的ファイルはWhitenoiseを使用
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFileStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # STATIC_URL = 'static/'
 # STATICFILES_DIRS = [BASE_DIR, 'static']

@@ -127,4 +127,4 @@ SLACK_WEBHOOK_URL_GENERAL = os.environ.get('WEBHOOK_GENERAL_URL')
 # ALLOWED_HOSTS = ['localhost', config.get('NGROK', 'HOST')]
 # CSRF_TRUSTED_ORIGINS = [config.get('NGROK', 'FULL_URL')]
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())

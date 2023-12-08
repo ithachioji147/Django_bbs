@@ -1,16 +1,16 @@
 import os
 from .base import *
 import dj_database_url
-# from pathlib import Path
-# import re
-# from configparser import ConfigParser
-# import django_heroku
+from pathlib import Path
+import re
+from configparser import ConfigParser
+import django_heroku
 
 
 DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sh@r--i56you_+%c_4thskfp3!1hmblzwpkl9-&q97!y)xvm%#'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 ALLOWED_HOSTS = ['127.0.0.1','.herokuapp.com']

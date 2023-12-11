@@ -2,11 +2,12 @@
 
 {% block content %}
 
+<!-- 新規投稿ボタン -->
 <div class="button-area">  
-    <!-- 新規投稿ボタン -->
     <a class="btn narrow" href="{% url 'main:new_article' %}">新規投稿</a>
 </div>
 
+<!-- プルダウン表示エリア -->
 <div class="pulldown-area">
     <!-- テーマ絞込みプルダウン -->
     <div class="pulldown">
@@ -20,7 +21,7 @@
         </select>
     </div>
 
-    <!-- スタッフ権限でログインした場合のみ、ステータス絞込みプルダウンを表示 -->
+    <!-- スタッフ権限ログイン時：ステータス絞込みプルダウン -->
     <div class="pulldown {% if user.is_staff %}visible{% else %}hidden{% endif %}">
         <label for="statusFilter">ステータスで絞り込み：</label>
         <select id="statusFilter" name="status">

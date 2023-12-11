@@ -37,6 +37,7 @@ a {
 select {
     height: 28px;
     padding: 3px;
+    border-radius: 0;
 }
 
 

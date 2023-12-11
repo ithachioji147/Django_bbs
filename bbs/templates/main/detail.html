@@ -7,7 +7,7 @@
     <h4>投稿者　：　{{ article.author }}</h4>
 </div>
 <div class="detail-contents">
-    {{ article.text | linebreaks | urlize }}
+    {{ article.text | linebreaksbr | urlize }}
     <br>
     {% if article.attached_file %}
     <div class="detail-attachment">

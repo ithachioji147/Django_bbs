@@ -45,7 +45,6 @@ select {
     width: 100%;
     margin: 0 auto;
     padding-bottom: 80px;
-    /* ------- background-color: var(--main-color); ------- */
     background: linear-gradient(180deg,#205375,#22577E,#F66B0E);
     color: var(--main-font-color);
     text-align: center;
@@ -203,6 +202,13 @@ header {
     }
 }
 
+@media screen and (max-width:428px) {
+    .narrow {
+        width: 45%;
+        letter-spacing: 0em;
+        text-indent: 0em;
+    }
+}
 
 /* ------- 記事リスト関連の設定 ------- */
 .list table {
@@ -342,3 +348,9 @@ header {
     transition: 0.5s;
 }
 
+@media screen and (max-width:778px) {
+    .article-area {
+        width: 100%;
+        margin: 0 auto;
+    }
+}

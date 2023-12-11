@@ -11,8 +11,8 @@
     text-indent: 0.05em;
 }
 
-/* iPhone用のスタイルリセット */
-input[type="button"], input[type="submit"] {
+/* input要素のスタイルリセット */
+input[type="file"], input[type="text"] {
     -webkit-appearance: none;
 }
 
@@ -35,7 +35,8 @@ a {
     }
 
 select {
-    border-radius: 1px;
+    height: 28px;
+    padding: 3px;
 }
 
 
@@ -92,6 +93,7 @@ header {
 }
 
 .pulldown {
+    height: 35px;
     padding: 1px;
 }
 

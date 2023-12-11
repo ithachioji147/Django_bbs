@@ -11,10 +11,10 @@
     text-indent: 0.05em;
 }
 
-/* iPhone用submitのスタイルリセット */
-button[type="submit"] {
+/* iPhone用のスタイルリセット */
+input[type="button"], input[type="submit"], select {
     -webkit-appearance: none;
-    /* border-radius: 0; */
+    border-radius: 0;
 }
 
 

@@ -1,12 +1,14 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Article
+from .models import Article, Theme
 
 
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
         fields = ['title', 'author', 'theme', 'text', 'attached_file','status']
+
+    theme = forms.ModelChoiceField(queryset=Theme.objects.all(), empty_label='テーマを選択して下さい')
 
     def __init__(self, *args, **kwargs):
         super(ArticleForm, self).__init__(*args, **kwargs)

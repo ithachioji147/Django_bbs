@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article
+from .models import Article, Theme
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -7,5 +7,6 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'title')
 
 
-admin.site.register(Article, ArticleAdmin)
-# admin.site.register(Article)
+# admin.site.register(Article, ArticleAdmin)
+admin.site.register(Article)
+admin.site.register(Theme)

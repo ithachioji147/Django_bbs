@@ -9,6 +9,7 @@ __pycache__/
 
 # Django generated files
 db.sqlite3
+db.json
 
 # Log files
 *.log

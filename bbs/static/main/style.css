@@ -22,8 +22,7 @@ input[type="button"], input[type="submit"], input[type="text"] {
     --main-color: #8B9BA8;
     --main-font-color: #FCFFFA;
     --transparent: rgba(255,255,255,0);
-    --hover: rgb(248, 194, 69);
-    --active: #FFC436;
+    --emphasis: #FFC436;
     --disabled: #3B4B58;
 }
 
@@ -41,12 +40,38 @@ select {
 }
 
 
+/* ------- 時間変更分（時刻をDjangoで取得して付与） ------- */
+.morning {
+    background: linear-gradient(180deg,#205375,#22577E,#F66B0E);
+    --main-font-color: #FCFFFA;
+    --emphasis: #FFC436;
+}
+
+.noon {
+    background: linear-gradient(180deg,#f0f0dc,#00c4e7,#118ac6);
+    --main-font-color: #01194b;
+    --emphasis: #fef7d4;
+}
+
+.afternoon {
+    background: linear-gradient(180deg,#205375,#22577E,#F66B0E);
+    --main-font-color: #FCFFFA;
+    --emphasis: #FFC436;
+}
+
+.night {
+    background: linear-gradient(180deg,#00031a,#2d1597,#2858a1);
+    --main-font-color: #a995c0;
+    --emphasis: #f0f0f0;
+}
+
+
 /* ------- 全体 ------- */
 .wrapper {
     width: 100%;
     margin: 0 auto;
     padding-bottom: 80px;
-    background: linear-gradient(180deg,#205375,#22577E,#F66B0E);
+    /* background: linear-gradient(180deg,#205375,#22577E,#F66B0E); */
     color: var(--main-font-color);
     text-align: center;
 }
@@ -133,12 +158,12 @@ header {
 }
 
 .btn-in-form:hover {
-    color: var(--hover);
+    color: var(--emphasis);
     transition: 0.5s;
 }
 
 .btn-in-form:active {
-    color: var(--active);
+    color: var(--emphasis);
     transition: 0.3s;
 }
 
@@ -159,14 +184,14 @@ header {
 }
 
 .btn:hover {
-    border: 1px solid var(--hover);
-    color: var(--hover);
+    border: 1px solid var(--emphasis);
+    color: var(--emphasis);
     transition: 0.5s;
 }
 
 .btn:active {
-    border: 1px solid var(--active);
-    color: var(--active);
+    border: 1px solid var(--emphasis);
+    color: var(--emphasis);
     transition: 0.3s;
 }
 
@@ -241,7 +266,7 @@ header {
 }
 
 .list table td a:hover {
-    color: var(--active);
+    color: var(--emphasis);
     transition: 0.5s;
 }
 
@@ -281,7 +306,7 @@ header {
 }
 
 .detail-contents a:hover {
-    color: var(--active);
+    color: var(--emphasis);
     transition: 0.5s;
 }
 
@@ -347,7 +372,7 @@ header {
 }
 
 .article-area a:hover {
-    color: var(--active);
+    color: var(--emphasis);
     transition: 0.5s;
 }
 

@@ -7,5 +7,5 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'title')
 
 
-admin.site.register(Article, ArticleAdmin)
-# admin.site.register(Article)
+# admin.site.register(Article, ArticleAdmin)
+admin.site.register(Article)

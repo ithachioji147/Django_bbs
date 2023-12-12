@@ -13,6 +13,6 @@ from django.core.wsgi import get_wsgi_application
 
 from main.middleware.restrict_access import RestrictAccessMiddleware
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bbs.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bbs.settings.local')
 
 application = get_wsgi_application()

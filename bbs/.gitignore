@@ -14,13 +14,17 @@ db.sqlite3
 *.log
 
 # Ignore the local settings file
-myproject/settings_local.py
+bbs/settings/local.py
+bbs/settings/settings_old.py
 
 # Ignore environment-specific settings
 .env
 
-# attached files
-bbs/media/attachment/
+# attached files - for local
+media/attachment/
 
-# config
+# config - for local
 config.ini
+
+# local file backups
+/local_backup

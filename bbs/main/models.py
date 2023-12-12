@@ -12,21 +12,13 @@ def validate_file_size(value):
         raise ValidationError("アップロード可能なファイルサイズを超えています。")
 
 
-class Theme(models.Model):
-    name = models.CharField(max_length=40, unique=True)
-    description = models.TextField(blank=False)
-
-    def __str__(self):
-        return self.name
-
-
 class Article(models.Model):
-    # THEMES = [
-    #     ('useful', 'お役立ち情報'),
-    #     ('diseases', '病気・障害について'),
-    #     ('learning', '学習情報'),
-    #     ('others', 'その他'),
-    # ]
+    THEMES = [
+        ('useful', 'お役立ち情報'),
+        ('diseases', '病気・障害について'),
+        ('learning', '学習情報'),
+        ('others', 'その他'),
+    ]
 
     STATUS_CHOICES = [
         ('DRAFT', '未承認'),
@@ -36,8 +28,7 @@ class Article(models.Model):
 
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=40)
-    # theme = models.CharField(max_length=100, choices=THEMES)
-    theme = models.ForeignKey(Theme, on_delete=models.DO_NOTHING, default='no_select')
+    theme = models.CharField(max_length=100, choices=THEMES)
     text = models.TextField(blank=True)
     attached_file = models.FileField(
         upload_to='attachment/', 

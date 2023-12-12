@@ -26,3 +26,5 @@ media/attachment/
 # config - for local
 config.ini
 
+# local file backups
+/local_backup

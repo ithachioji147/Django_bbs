@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 # from django.db.models.signals import pre_save
 # from django.dispatch import receiver
 # from django.utils import timezone
@@ -42,7 +43,7 @@ class Article(models.Model):
         blank=True,
         default='DRAFT',
     )
-    created_datetime = models.DateTimeField(auto_now_add=True)
+    created_datetime = models.DateTimeField(default=timezone.now)
     edited_datetime = models.DateTimeField(auto_now=True)
     passcode = models.CharField(blank=True, null=True, max_length=4)
 

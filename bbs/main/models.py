@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 
 def validate_file_size(value):
     filesize = value.size
-    
+
     if filesize > 1024 * 1024 * 1:
         raise ValidationError("アップロード可能なファイルサイズを超えています。")
 
@@ -31,8 +31,8 @@ class Article(models.Model):
     theme = models.CharField(max_length=100, choices=THEMES)
     text = models.TextField(blank=True)
     attached_file = models.FileField(
-        upload_to='attachment/', 
-        null=True, 
+        upload_to='attachment/',
+        null=True,
         blank=True,
         validators=[validate_file_size]
     )
@@ -51,16 +51,3 @@ class Article(models.Model):
 
     class Meta:
         app_label = 'main'
-
-
-# @receiver(pre_save, sender=Article)
-# def update_edited_datetime(sender, instance, **kwargs):
-#     if instance.pk is not None:
-#         original_instance = sender.objects.get(pk=instance.pk)
-#         if instance == original_instance:
-#             print(original_instance.edited_datetime)
-#             return
-        
-#     instance.edited_datetime = timezone.now()
-
-

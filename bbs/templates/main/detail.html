@@ -14,10 +14,12 @@
         <a href="{{ article.attached_file.url }}" target="_blank">【添付ファイルを見る】</a>
     </div>
     {% endif %}
-
-    <p>テーマ：{{ article.get_theme_display }}</p>
-    <p>投稿日時：{{ article.created_datetime }}<p>
-    <p>最終更新／承認日時：{{ article.edited_datetime }}</p>
+    <br>
+    <div class="detail-footer">
+        <p>テーマ：{{ article.get_theme_display }}</p>
+        <p>投稿日時：{{ article.created_datetime }}<p>
+        <p>最終更新／承認日時：{{ article.edited_datetime }}</p>
+    </div>
 </div>
 
 <div class="buttons-area">
